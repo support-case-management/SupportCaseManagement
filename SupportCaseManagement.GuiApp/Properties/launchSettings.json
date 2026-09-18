@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SupportCaseManagement.GuiApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SupportCaseManagement.GuiApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
