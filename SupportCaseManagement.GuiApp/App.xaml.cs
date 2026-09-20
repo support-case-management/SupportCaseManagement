@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using SupportCaseManagement.Business;
+using SupportCaseManagement.Infrastructure;
 using System;
 
 namespace SupportCaseManagement.GuiApp;
@@ -12,6 +14,9 @@ public partial class App : Application
     public App()
     {
         var services = new ServiceCollection();
+
+        services.AddBusiness();
+        services.AddInfrastructure();
 
         services.AddTransient<MainWindow>();
 
