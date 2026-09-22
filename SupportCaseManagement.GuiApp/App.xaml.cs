@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using SupportCaseManagement.Business;
 using SupportCaseManagement.Infrastructure;
+using SupportCaseManagement.Presentation;
 using System;
 
 namespace SupportCaseManagement.GuiApp;
 
 public partial class App : Application
 {
+    // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
     public static IServiceProvider Provider { get; private set; } = null!;
     private Window? _window;
 

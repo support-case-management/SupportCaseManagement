@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SupportCaseManagement.Business\SupportCaseManagement.Business.csproj" />
+    <ProjectReference Include="..\SupportCaseManagement.Business\SupportCaseManagement.Presentation.csproj" />
     <ProjectReference Include="..\SupportCaseManagement.Domain\SupportCaseManagement.Domain.csproj" />
   </ItemGroup>
 

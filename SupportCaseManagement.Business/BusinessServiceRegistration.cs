@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace SupportCaseManagement.Business;
+namespace SupportCaseManagement.Presentation;
 
 public static class BusinessServiceRegistration
 {

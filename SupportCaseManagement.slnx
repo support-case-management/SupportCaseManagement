@@ -4,7 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="SupportCaseManagement.Business/SupportCaseManagement.Business.csproj" />
+  <Project Path="SupportCaseManagement.Business/SupportCaseManagement.Presentation.csproj" />
   <Project Path="SupportCaseManagement.Domain/SupportCaseManagement.Domain.csproj" />
   <Project Path="SupportCaseManagement.GuiApp/SupportCaseManagement.GuiApp.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
