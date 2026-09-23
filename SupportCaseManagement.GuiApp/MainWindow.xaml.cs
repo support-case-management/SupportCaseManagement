@@ -29,11 +29,17 @@ public sealed partial class MainWindow : Window
             "cases" => typeof(CasesView),
             _ => null
         };
+
+        if (pageType is null || ContentFrame.CurrentSourcePageType == pageType)
+            return;
+
+        ContentFrame.Navigate(pageType);
     }
 
     private void MainNavigation_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
     {
-
+        if (ContentFrame.CanGoBack)
+            ContentFrame.GoBack();
     }
 }
 
