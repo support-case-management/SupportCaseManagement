@@ -2,9 +2,9 @@
 
 namespace SupportCaseManagement.Presentation;
 
-public static class BusinessServiceRegistration
+public static class ApplicationServiceRegistration
 {
-    public static IServiceCollection AddBusiness(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         return services;
     }

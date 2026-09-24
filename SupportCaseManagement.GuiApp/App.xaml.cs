@@ -15,7 +15,7 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        services.AddBusiness();
+        services.AddApplication();
         services.AddInfrastructure();
 
         services.AddTransient<MainWindow>();
