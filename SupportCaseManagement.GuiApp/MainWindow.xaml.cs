@@ -1,45 +1,47 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using SupportCaseManagement.Presentation.Pages.Views;
-using System;
+using SupportCaseManagement.Presentation.Navigation;
 
 namespace SupportCaseManagement.Presentation;
 
 public sealed partial class MainWindow : Window
 {
-    public MainWindow()
+    private readonly INavigationService _navigationService;
+    public MainWindow(INavigationService navigationSerivce)
     {
         InitializeComponent();
-        ContentFrame.Navigate(typeof(OverviewView));
+
+        _navigationService = navigationSerivce;
+        _navigationService.Initalize(ContentFrame);
+        _navigationService.Navigate(AppPage.Overview);
+
     }
 
     private void ContentFrame_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
     {
-
+        MainNavigation.IsBackEnabled = true;
     }
 
     private void MainNavigation_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
     {
         if (args.InvokedItemContainer is not NavigationViewItem item)
             return;
-        Type? pageType = item.Tag.ToString() switch
+
+        AppPage? page = item.Tag?.ToString() switch
         {
-            "overview" => typeof(OverviewView),
-            "customers" => typeof(CustomersView),
-            "cases" => typeof(CasesView),
+            "overview" => AppPage.Overview,
+            "customers" => AppPage.Customers,
+            "cases" => AppPage.Cases,
             _ => null
         };
 
-        if (pageType is null || ContentFrame.CurrentSourcePageType == pageType)
-            return;
-
-        ContentFrame.Navigate(pageType);
+        if (page is AppPage destination)
+            _navigationService.Navigate(destination);
     }
 
     private void MainNavigation_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
     {
-        if (ContentFrame.CanGoBack)
-            ContentFrame.GoBack();
+        _navigationService.GoBack();
     }
 }
 

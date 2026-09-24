@@ -15,9 +15,9 @@
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Pages\Views\CasesView.xaml" />
-    <None Remove="Pages\Views\CustomersView.xaml" />
-    <None Remove="Pages\Views\OverviewView.xaml" />
+    <None Remove="Pages\OverviewPage.xaml" />
+    <None Remove="Views\CasesView.xaml" />
+    <None Remove="Views\CustomersView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,20 +55,17 @@
     <ProjectReference Include="..\SupportCaseManagement.Infrastructure\SupportCaseManagement.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Pages\Views\CasesView.xaml">
+    <Page Update="Views\CasesView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\Views\CustomersView.xaml">
+    <Page Update="Views\CustomersView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\Views\OverviewView.xaml">
+    <Page Update="Pages\OverviewView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

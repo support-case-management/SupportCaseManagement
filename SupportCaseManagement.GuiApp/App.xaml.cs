@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using SupportCaseManagement.Infrastructure;
+using SupportCaseManagement.Presentation.Navigation;
+using SupportCaseManagement.Presentation.ViewModels;
 using System;
 
 namespace SupportCaseManagement.Presentation;
@@ -8,7 +10,7 @@ namespace SupportCaseManagement.Presentation;
 public partial class App : Application
 {
     // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
-    private readonly IServiceProvider _provider;
+    public static IServiceProvider Provider { get; private set; } = null;
     private Window? _window;
 
     public App()
@@ -18,13 +20,15 @@ public partial class App : Application
         services.AddApplication();
         services.AddInfrastructure();
         services.AddTransient<MainWindow>();
+        services.AddSingleton<INavigationService, NavigationService>();
+        services.AddTransient<OverviewViewModel>();
 
-        _provider = services.BuildServiceProvider();
+        Provider = services.BuildServiceProvider();
     }
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        _window = _provider.GetRequiredService<MainWindow>();
+        _window = Provider.GetRequiredService<MainWindow>();
         _window.Activate();
     }
 }
