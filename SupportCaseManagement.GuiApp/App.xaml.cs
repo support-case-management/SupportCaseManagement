@@ -1,15 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using SupportCaseManagement.Infrastructure;
-using SupportCaseManagement.Presentation;
 using System;
 
-namespace SupportCaseManagement.GuiApp;
+namespace SupportCaseManagement.Presentation;
 
 public partial class App : Application
 {
     // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
-    public static IServiceProvider Provider { get; private set; } = null!;
+    private readonly IServiceProvider _provider;
     private Window? _window;
 
     public App()
@@ -21,12 +20,12 @@ public partial class App : Application
 
         services.AddTransient<MainWindow>();
 
-        Provider = services.BuildServiceProvider();
+        _provider = services.BuildServiceProvider();
     }
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        _window = Provider.GetRequiredService<MainWindow>();
+        _window = _provider.GetRequiredService<MainWindow>();
         _window.Activate();
     }
 }

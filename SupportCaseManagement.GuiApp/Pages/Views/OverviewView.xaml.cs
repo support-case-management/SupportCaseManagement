@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 
-namespace SupportCaseManagement.GuiApp.Pages.Views;
+namespace SupportCaseManagement.Presentation.Pages.Views;
 
 public sealed partial class OverviewView : Page
 {

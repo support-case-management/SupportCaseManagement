@@ -3,7 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>SupportCaseManagement.GuiApp</RootNamespace>
+    <RootNamespace>SupportCaseManagement.Presentation</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     
-    <ProjectReference Include="..\SupportCaseManagement.Business\SupportCaseManagement.Presentation.csproj" />
+    <ProjectReference Include="..\SupportCaseManagement.Business\SupportCaseManagement.Application.csproj" />
     <ProjectReference Include="..\SupportCaseManagement.Domain\SupportCaseManagement.Domain.csproj" />
     <ProjectReference Include="..\SupportCaseManagement.Infrastructure\SupportCaseManagement.Infrastructure.csproj" />
   </ItemGroup>

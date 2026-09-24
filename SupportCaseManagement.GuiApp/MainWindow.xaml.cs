@@ -1,9 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using SupportCaseManagement.GuiApp.Pages.Views;
+using SupportCaseManagement.Presentation.Pages.Views;
 using System;
 
-namespace SupportCaseManagement.GuiApp;
+namespace SupportCaseManagement.Presentation;
 
 public sealed partial class MainWindow : Window
 {
