@@ -17,7 +17,6 @@ public partial class App : Application
 
         services.AddApplication();
         services.AddInfrastructure();
-
         services.AddTransient<MainWindow>();
 
         _provider = services.BuildServiceProvider();
