@@ -39,6 +39,7 @@ public class NavigationService : INavigationService
             AppPage.Overview => typeof(OverviewView),
             AppPage.Customers => typeof(CustomersView),
             AppPage.Cases => typeof(CasesView),
+            AppPage.CaseManager => typeof(CaseManagerView),
             _ => throw new ArgumentOutOfRangeException($"Unable to navigate to {page}.")
         };
 

@@ -32,6 +32,7 @@ public sealed partial class MainWindow : Window
             "overview" => AppPage.Overview,
             "customers" => AppPage.Customers,
             "cases" => AppPage.Cases,
+            "caseManager" => AppPage.CaseManager,
             _ => null
         };
 
