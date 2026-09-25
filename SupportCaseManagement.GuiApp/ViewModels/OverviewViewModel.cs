@@ -1,8 +1,8 @@
-﻿using SupportCaseManagement.Presentation.Navigation;
-
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SupportCaseManagement.Presentation.Navigation;
 namespace SupportCaseManagement.Presentation.ViewModels;
 
-public partial class OverviewViewModel
+public partial class OverviewViewModel : ObservableObject
 {
     private readonly INavigationService _navigationService;
 

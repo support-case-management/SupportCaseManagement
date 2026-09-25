@@ -1,7 +1,9 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace SupportCaseManagement.Presentation.ViewModels;
 
-public partial class CasesViewModel
+public partial class CasesViewModel : ObservableObject
 {
 }
 
