@@ -7,7 +7,7 @@ using System;
 
 namespace SupportCaseManagement.Presentation;
 
-public partial class App : Application
+public partial class App : Microsoft.UI.Xaml.Application
 {
     // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
     public static IServiceProvider Provider { get; private set; } = null;
