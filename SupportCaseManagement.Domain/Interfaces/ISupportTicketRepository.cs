@@ -3,5 +3,5 @@
 public interface ISupportTicketRepository
 {
     Task<List<SupportTicket>> GetAllAsync();
-    Task SaveAllAsync(IEnumerable<SupportTicket> supportTicket);
+    Task SaveAllAsync(IEnumerable<SupportTicket> supportTickets);
 }
