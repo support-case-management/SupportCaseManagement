@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <StackPanel Margin="24" Spacing="12">
-        <TextBlock Text="Ärendetalj"/>
+        <TextBlock Text="Ärendedetalj"/>
         <TextBlock Text="Kund" />
         <TextBlock x:Name="CustomerName" Text="Ingen Kund vald"/>
 
