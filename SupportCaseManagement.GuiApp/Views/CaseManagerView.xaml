@@ -8,10 +8,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Text="Welcome to the Cases Page!" 
-   HorizontalAlignment="Center" 
-   VerticalAlignment="Center" 
-   FontSize="24"/>
-    </Grid>
+    <StackPanel Margin="24" Spacing="12">
+        <TextBlock Text="Ärendetalj"/>
+        <TextBlock Text="Kund" />
+        <TextBlock x:Name="CustomerName" Text="Ingen Kund vald"/>
+
+        <TextBox x:Name="Title" Header="Rubrik"/>
+
+        <TextBox x:Name="DescriptionBox" 
+                 Header="Beskrivning"
+                 MinHeight="100"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 
+                 />
+
+        <ComboBox x:Name="CaseWorkerBox"
+                   Header="Ansvarig handläggare"
+                  PlaceholderText="Välj en handläggare"
+          
+                   />
+    </StackPanel>
 </Page>
