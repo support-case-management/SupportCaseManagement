@@ -28,5 +28,17 @@
                   PlaceholderText="Välj en handläggare"
           
                    />
+        <ComboBox x:Name="PriorityBox" Header="prioritet">
+            <ComboBoxItem Content="Låg"/>
+            <ComboBoxItem Content="Normal"/>
+            <ComboBoxItem Content="Hög"/>
+        </ComboBox>
+
+        <ComboBox x:Name="Status" Header="status">
+            <ComboBoxItem Content="Nytt"/>
+            <ComboBoxItem Content="Pågående"/>
+            <ComboBoxItem Content="Löst"/>
+        </ComboBox>
+  
     </StackPanel>
 </Page>
