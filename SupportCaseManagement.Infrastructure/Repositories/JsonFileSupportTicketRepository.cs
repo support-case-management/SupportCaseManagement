@@ -27,7 +27,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
 
         string json = await File.ReadAllTextAsync(_supportTicketsFilePath);
 
-        List<SupportTicket> supportTickets = JsonSerializer.Deserialize < ListzSupportTicket >> (json, _options)
+        List<SupportTicket> supportTickets = JsonSerializer.Deserialize <List<SupportTicket>>(json, _options)
             ?? throw new JsonException("The support ticket file must contain a json based list");
 
         return supportTickets;
