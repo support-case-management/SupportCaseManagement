@@ -2,8 +2,8 @@
 
 public class Comment
 {
-    public string Text { get; } 
-    public DateTime Created { get; }
+    public string Text { get; set; } 
+    public DateTime Created { get; set; }
 
 
     public Comment(string text, DateTime created)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using SupportCaseManagement.Application;
 using SupportCaseManagement.Infrastructure;
 using SupportCaseManagement.Presentation.Navigation;
 using SupportCaseManagement.Presentation.ViewModels;
