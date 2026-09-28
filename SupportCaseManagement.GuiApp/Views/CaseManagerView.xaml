@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+
     <StackPanel Margin="24" Spacing="12">
         <TextBlock Text="Ärendedetalj"/>
         <TextBlock Text="Kund" />
@@ -39,6 +40,19 @@
             <ComboBoxItem Content="Pågående"/>
             <ComboBoxItem Content="Löst"/>
         </ComboBox>
-  
+
+        <TextBox x:Name="CommentSpace"
+                 Header="Ny Kommentar"
+                 AcceptsReturn="True"
+                 MinHeight="80"
+                 TextWrapping="Wrap"/>
+        <Button Content="Lägg till en kommentar" />
+        <TextBlock Text="Tidigare kommentarer" />
+        <ListView x:Name="CommentsList" />
+
+
+
     </StackPanel>
+
+
 </Page>
