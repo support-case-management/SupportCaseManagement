@@ -5,9 +5,9 @@ namespace SupportCaseManagement.Domain.Models;
 
 public class Customer(Guid customerId, CustomerName customerName, EmailAddress emailAddress, bool isCompany)
 {
-    public Guid CustomerId { get; set; } = customerId;
+    public Guid CustomerId { get; } = customerId;
     public CustomerName CustomerName { get; set; } = customerName;
-    public EmailAddress EmailAddress { get; set; } = emailAddress;
+    public EmailAddress EmailAddress { get; private set; } = emailAddress;
     public bool IsCompany { get; set; } = isCompany;
     
     // lista av ärenden ska vara med också 
@@ -16,10 +16,6 @@ public class Customer(Guid customerId, CustomerName customerName, EmailAddress e
     [JsonIgnore]
     public string CustomerType => IsCompany ? "Företag" : "Privatkund";
 
-    public void SetId(Guid id)
-    {
-        CustomerId = id;
-    }
     public void Rename(CustomerName customerName)
     {
         CustomerName = customerName;
