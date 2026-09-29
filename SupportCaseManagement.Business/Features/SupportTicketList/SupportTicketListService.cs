@@ -12,6 +12,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     {
         List<SupportTicket> supportTickets = await _supportTicketRepository.GetAllAsync();
 
+        _filteredTicketList.Clear();
         _filterOn = false;
 
         return supportTickets.OrderBy(ticket => ticket.Date);
@@ -29,11 +30,30 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         _filteredTicketList = filteredList;
         _filterOn = true;
 
-        return _filteredTicketList;
+        return filteredList;
     }
 
-    public IEnumerable<SupportTicket> GetTicketsContaining(string searchText)
+    public async IEnumerable<SupportTicket> GetTicketsContaining(string searchText)
     {
-        throw new NotImplementedException();
+        List<SupportTicket> supportTickets;
+
+        if (_filterOn)
+        {
+            supportTickets = _filteredTicketList;
+        }
+        else
+        {
+            supportTickets = await _supportTicketRepository.GetAllAsync();
+        }
+
+        string normalizedSearchText = searchText.Trim().ToLower();
+
+        IEnumerable<SupportTicket> searchedTickets = from ticket in supportTickets
+                                                     where ticket.Title.ToLower().Contains(normalizedSearchText) || 
+                                                           ticket.Customer.CustomerName.Value.ToLower().Contains(normalizedSearchText)
+                                                     orderby ticket.Date
+                                                     select ticket;
+
+        return searchedTickets;
     }
 }
