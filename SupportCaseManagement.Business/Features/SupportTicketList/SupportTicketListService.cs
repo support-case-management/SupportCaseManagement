@@ -34,7 +34,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         List<SupportTicket> supportTickets = await _supportTicketRepository.GetAllAsync();
 
         // tar fram de ärenden som har den givna statusen genom linq, som fungerar så här:
-        // from - som i en foreach-loop, ger ett namn på elementen i listan och vilken lista som ska gås igenom, men behöver inte skriva datatypen
+        // from - som i en foreach-loop, ger ett namn på elementen som ska gås igenom ett för ett och anger vilken lista som ska gås igenom, men behöver inte skriva datatypen
         // where - kravet som måste uppfyllas för att ärendet ska tas med, i detta fall att ärendets status är detsamma som den givna statusen
         // orderby - säger hur ärendena som väljs ut ska sorteras, i detta fall efter datum
         // select - vad som ska läggas in i den nya listan, i detta fall hela ärende-objektet som uppfyller kravet
