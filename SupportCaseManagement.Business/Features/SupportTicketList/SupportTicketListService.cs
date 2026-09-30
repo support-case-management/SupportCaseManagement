@@ -49,10 +49,15 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         string normalizedSearchText = searchText.Trim().ToLower();
 
         IEnumerable<SupportTicket> searchedTickets = from ticket in supportTickets
-                                                     where ticket.Title.ToLower().Contains(normalizedSearchText) || 
+                                                     where ticket.Title.ToLower().Contains(normalizedSearchText) ||
                                                            ticket.Customer.CustomerName.Value.ToLower().Contains(normalizedSearchText)
                                                      orderby ticket.Date
                                                      select ticket;
+
+        if (searchedTickets is null)
+        {
+            searchedTickets = [];
+        }
 
         return searchedTickets;
     }
