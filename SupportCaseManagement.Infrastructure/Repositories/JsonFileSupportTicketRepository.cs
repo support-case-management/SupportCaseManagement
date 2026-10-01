@@ -1,4 +1,4 @@
-﻿using SupportCaseManagement.Domain.SupportTickets.Interfaces;
+﻿using SupportCaseManagement.Domain.Interfaces;
 using SupportCaseManagement.Domain.SupportTickets.Models;
 using System.Text.Json;
 

@@ -1,6 +1,6 @@
 ﻿using SupportCaseManagement.Domain.SupportTickets.Models;
 
-namespace SupportCaseManagement.Domain.SupportTickets.Interfaces;
+namespace SupportCaseManagement.Domain.Interfaces;
 
 public interface ISupportTicketRepository
 {
