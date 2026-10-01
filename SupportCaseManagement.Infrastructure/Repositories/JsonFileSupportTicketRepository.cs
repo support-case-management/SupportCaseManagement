@@ -49,7 +49,6 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
     /// Den är async och använder await för att applikationen inte ska låsas helt från all interaktion medans metoden körs.
     /// </summary>
     /// <returns>en lista med alla sparade ärenden</returns>
-    /// <exception cref="JsonException">om filen inte innehåller en json-fil, alltså om vi får tillbaka null, kastas en JsonExeption med medelande</exception>
     public async Task<List<SupportTicket>> GetAllAsync()
     {
         if (!File.Exists(_supportTicketsFilePath))
@@ -65,6 +64,11 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
         return supportTickets;
     }
 
+    /// <summary>
+    /// Hämtar ett ärende med det givna id:t från den sparade listan av ärenden
+    /// </summary>
+    /// <param name="id">id:t på det ärende som ska hämtas ur den sparade listan</param>
+    /// <returns>ärendet med det givna id:t från listan</returns>
     public async Task<SupportTicket> GetById(Guid id)
     {
         List<SupportTicket> supportTickets = await GetAllAsync();
@@ -73,12 +77,17 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
 
         if (supportTicket == null)
         {
-            throw new ArgumentException($"Inget ärende med id '{id}' kunde hittas i den sparade filen");
+            throw new ArgumentNullException($"Inget ärende med id '{id}' kunde hittas i den sparade filen");
         }
 
         return supportTicket;
     }
 
+    /// <summary>
+    /// Uppdaterar ett ärende i den sparade listan av ärenden till det givna ärendet
+    /// </summary>
+    /// <param name="updatedTicket">det uppdaterade ärendet</param>
+    /// <returns>det uppdaterade ärendet</returns>
     public async Task<SupportTicket> Update(SupportTicket updatedTicket)
     {
         if (updatedTicket is null)
