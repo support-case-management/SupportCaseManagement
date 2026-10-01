@@ -3,10 +3,10 @@
 public class Comment
 {
     public string Text { get; set; } 
-    public DateTime Created { get; set; }
+    public DateTime CreatedAt { get; set; }
 
 
-    public Comment(string text, DateTime created)
+    public Comment(string text, DateTime createdAt)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -14,6 +14,6 @@ public class Comment
         }
 
         Text = text;
-        Created = created;
+        CreatedAt = createdAt;
     }
 }

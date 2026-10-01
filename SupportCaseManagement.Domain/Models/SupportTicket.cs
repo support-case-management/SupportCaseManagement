@@ -11,6 +11,7 @@ public class SupportTicket
     public TicketPriority Priority { get; private set; }
     public TicketStatus Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
+    public string? AssignedCaseWorker { get; private set; }
     public Customer Customer { get; init; }
 
     // Privat konstruktor för deserialisering/ORM
@@ -36,4 +37,38 @@ public class SupportTicket
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
         CreatedAt = DateTime.UtcNow;
     }
+
+    public void AssignCaseWorker(string? name)
+    {
+        if (Status != TicketStatus.New && string.IsNullOrWhiteSpace(name))
+        {
+
+            throw new ArgumentException
+            (
+                "Ett pågående eller löst ärende måste ha en handlägare"
+            );
+        }
+
+        AssignedCaseWorker = string.IsNullOrWhiteSpace(name)
+            ? null
+            : name.Trim();
+
+    }
+
+    public void ChangeStatus(TicketStatus newStatus)
+    {
+        if (!Enum.IsDefined(newStatus))
+        {
+            throw new ArgumentException("Ogiltig status");
+        }
+
+        if(newStatus != TicketStatus.New && string.IsNullOrWhiteSpace(AssignedCaseWorker))
+        {
+            throw new InvalidOperationException(
+                "Välj en handläggare innan du ändrar status");
+        }
+
+        Status = newStatus;
+    }
+
 }

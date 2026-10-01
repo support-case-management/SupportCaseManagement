@@ -7,7 +7,7 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddTransient<CaseWorkerSercice>();
+        services.AddTransient<CaseWorkerService>();
         services.AddSingleton<ISupportTicketListService, SupportTicketListService>();
         return services;
     }
