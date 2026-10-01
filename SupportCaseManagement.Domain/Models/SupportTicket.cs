@@ -1,4 +1,5 @@
 ﻿using SupportCaseManagement.Domain.Enums;
+using System.Net.WebSockets;
 
 namespace SupportCaseManagement.Domain.Models;
 
@@ -13,6 +14,8 @@ public class SupportTicket
     public DateTime CreatedAt { get; private set; }
     public string? AssignedCaseWorker { get; private set; }
     public Customer Customer { get; init; }
+    public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();
+    private readonly List<Comment> _comments = [];
 
     // Privat konstruktor för deserialisering/ORM
     private SupportTicket() { }
@@ -62,13 +65,20 @@ public class SupportTicket
             throw new ArgumentException("Ogiltig status");
         }
 
-        if(newStatus != TicketStatus.New && string.IsNullOrWhiteSpace(AssignedCaseWorker))
+        if (newStatus != TicketStatus.New && string.IsNullOrWhiteSpace(AssignedCaseWorker))
         {
             throw new InvalidOperationException(
                 "Välj en handläggare innan du ändrar status");
         }
 
         Status = newStatus;
+    }
+
+    //lägger till en kommentar med aktuell tid. Tom text avvisas
+    public void AddComment(string text)
+    {
+        var comment = new Comment(text, DateTime.UtcNow);
+        _comments.Add(comment);
     }
 
 }
