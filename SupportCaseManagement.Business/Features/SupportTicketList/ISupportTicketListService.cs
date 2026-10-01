@@ -1,8 +1,11 @@
-﻿namespace SupportCaseManagement.Application.Features.SupportTicketList;
+﻿using SupportCaseManagement.Domain.Enums;
+using SupportCaseManagement.Domain.Models;
+
+namespace SupportCaseManagement.Application.Features.SupportTicketList;
 
 public interface ISupportTicketListService
 {
-    IEnumerable<SupportTicket> GetAllTicketsSorted();
-    IEnumerable<SupportTicket> GetTicketsContaining(string searchText);
-    IEnumerable<SupportTicket> GetTicketsWith(Statuses status);
+    Task<IEnumerable<SupportTicket>> GetAllTicketsSortedAsync();
+    Task<IEnumerable<SupportTicket>> GetTicketsContainingAsync(string searchText);
+    Task<IEnumerable<SupportTicket>> GetTicketsWithAsync(TicketStatus status);
 }

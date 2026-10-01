@@ -1,5 +1,5 @@
 ﻿using SupportCaseManagement.Domain.Interfaces;
-using SupportCaseManagement.Domain.SupportTickets.Models;
+using SupportCaseManagement.Domain.Models;
 using System.Text.Json;
 
 namespace SupportCaseManagement.Infrastructure.Repositories;

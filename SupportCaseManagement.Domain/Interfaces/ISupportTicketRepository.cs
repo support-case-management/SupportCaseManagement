@@ -1,4 +1,4 @@
-﻿using SupportCaseManagement.Domain.SupportTickets.Models;
+﻿using SupportCaseManagement.Domain.Models;
 
 namespace SupportCaseManagement.Domain.Interfaces;
 

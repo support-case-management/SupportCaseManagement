@@ -1,4 +1,6 @@
-﻿using SupportCaseManagement.Domain.Interfaces;
+﻿using SupportCaseManagement.Domain.Enums;
+using SupportCaseManagement.Domain.Interfaces;
+using SupportCaseManagement.Domain.Models;
 
 namespace SupportCaseManagement.Application.Features.SupportTicketList;
 
@@ -14,14 +16,14 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     /// Hämtar alla sparade ärenden genom repositoryn och returnerar dessa sorterade efter datum
     /// </summary>
     /// <returns>en IEnumerable-lista med alla ärenden sorterade efter datum</returns>
-    public async IEnumerable<SupportTicket> GetAllTicketsSorted()
+    public async Task<IEnumerable<SupportTicket>> GetAllTicketsSortedAsync()
     {
         List<SupportTicket> supportTickets = await _supportTicketRepository.GetAllAsync();
 
         _filteredTicketList.Clear();
         _filterOn = false;
 
-        return supportTickets.OrderBy(ticket => ticket.Date);
+        return supportTickets.OrderBy(ticket => ticket.CreatedAt);
     }
 
     /// <summary>
@@ -29,7 +31,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     /// </summary>
     /// <param name="status">statusen på ärendena som ska filtreras fram</param>
     /// <returns>en IEnumerable-lista med de ärenden som har den givna statusen</returns>
-    public async IEnumerable<SupportTicket> GetTicketsWith(Statuses status)
+    public async Task<IEnumerable<SupportTicket>> GetTicketsWithAsync(TicketStatus status)
     {
         List<SupportTicket> supportTickets = await _supportTicketRepository.GetAllAsync();
 
@@ -40,10 +42,10 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         // select - vad som ska läggas in i den nya listan, i detta fall hela ärende-objektet som uppfyller kravet
         IEnumerable<SupportTicket> filteredList = from ticket in supportTickets
                                                   where ticket.Status == status
-                                                  orderby ticket.Date
+                                                  orderby ticket.CreatedAt
                                                   select ticket;
 
-        _filteredTicketList = filteredList;
+        _filteredTicketList = filteredList.ToList();
         _filterOn = true;
 
         return filteredList;
@@ -55,7 +57,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     /// </summary>
     /// <param name="searchText">det ord eller del av ord som ska finnas i ärendets rubrik eller kundens namn</param>
     /// <returns>en IEnumerable-lista med de ärenden som innehåller sök-texten</returns>
-    public async IEnumerable<SupportTicket> GetTicketsContaining(string searchText)
+    public async Task<IEnumerable<SupportTicket>> GetTicketsContainingAsync(string searchText)
     {
         List<SupportTicket> supportTickets;
 
@@ -76,7 +78,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         IEnumerable<SupportTicket> searchedTickets = from ticket in supportTickets
                                                      where ticket.Title.ToLower().Contains(normalizedSearchText) ||
                                                            ticket.Customer.CustomerName.Value.ToLower().Contains(normalizedSearchText)
-                                                     orderby ticket.Date
+                                                     orderby ticket.CreatedAt
                                                      select ticket;
 
         if (searchedTickets is null)
