@@ -9,8 +9,7 @@ public class Customer(Guid customerId, CustomerName customerName, EmailAddress e
     public CustomerName CustomerName { get; set; } = customerName;
     public EmailAddress EmailAddress { get; private set; } = emailAddress;
     public bool IsCompany { get; set; } = isCompany;
-    
-    // lista av ärenden ska vara med också 
+    public List<SupportTicket> TicketList { get; set; } = [];
 
 
     [JsonIgnore]
