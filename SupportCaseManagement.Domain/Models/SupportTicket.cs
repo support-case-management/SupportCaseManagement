@@ -1,6 +1,6 @@
 ﻿using SupportCaseManagement.Domain.Enums;
 
-namespace SupportCaseManagement.Domain.Entities;
+namespace SupportCaseManagement.Domain.Models;
 
 public class SupportTicket
 {
