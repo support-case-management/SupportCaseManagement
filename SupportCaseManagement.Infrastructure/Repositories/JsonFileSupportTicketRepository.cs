@@ -1,4 +1,4 @@
-﻿using SupportCaseManagement.Domain.Interfaces;
+﻿using SupportCaseManagement.Domain.SupportTickets.Interfaces;
 using System.Text.Json;
 
 namespace SupportCaseManagement.Infrastructure.Repositories;

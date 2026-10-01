@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SupportCaseManagement.Domain.Interfaces;
+using SupportCaseManagement.Domain.SupportTickets.Interfaces;
 using SupportCaseManagement.Infrastructure.Repositories;
 
 namespace SupportCaseManagement.Infrastructure;
