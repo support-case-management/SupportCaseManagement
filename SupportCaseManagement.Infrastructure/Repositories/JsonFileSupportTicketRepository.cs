@@ -69,7 +69,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
     /// </summary>
     /// <param name="id">id:t på det ärende som ska hämtas ur den sparade listan</param>
     /// <returns>ärendet med det givna id:t från listan</returns>
-    public async Task<SupportTicket> GetById(Guid id)
+    public async Task<SupportTicket> GetByIdAsync(Guid id)
     {
         List<SupportTicket> supportTickets = await GetAllAsync();
 
@@ -88,7 +88,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
     /// </summary>
     /// <param name="updatedTicket">det uppdaterade ärendet</param>
     /// <returns>det uppdaterade ärendet</returns>
-    public async Task<SupportTicket> Update(SupportTicket updatedTicket)
+    public async Task<SupportTicket> UpdateAsync(SupportTicket updatedTicket)
     {
         if (updatedTicket is null)
         {

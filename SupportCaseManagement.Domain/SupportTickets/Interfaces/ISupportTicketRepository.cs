@@ -6,6 +6,6 @@ public interface ISupportTicketRepository
 {
     Task SaveAllAsync(IEnumerable<SupportTicket> supportTickets);
     Task<List<SupportTicket>> GetAllAsync();
-    Task<SupportTicket> GetById(Guid id);
-    Task<SupportTicket> Update(SupportTicket updatedTicket);
+    Task<SupportTicket> GetByIdAsync(Guid id);
+    Task<SupportTicket> UpdateAsync(SupportTicket updatedTicket);
 }
