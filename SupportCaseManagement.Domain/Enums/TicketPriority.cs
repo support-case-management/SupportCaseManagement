@@ -1,5 +1,8 @@
-﻿namespace SupportCaseManagement.Domain.Enums;
+namespace SupportCaseManagement.Domain.Enums;
 
-internal enum TicketPriority
+public enum TicketPriority
 {
+    Low,
+    Normal,
+    High,
 }
