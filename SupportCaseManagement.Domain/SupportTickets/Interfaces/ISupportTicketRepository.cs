@@ -1,11 +1,11 @@
-﻿using SupportCaseManagement.Domain.SupportTickets.Dtos;
+﻿using SupportCaseManagement.Domain.SupportTickets.Models;
 
 namespace SupportCaseManagement.Domain.SupportTickets.Interfaces;
 
 public interface ISupportTicketRepository
 {
     Task SaveAllAsync(IEnumerable<SupportTicket> supportTickets);
-    GetAllResponse GetAllAsync();
-    Task<GetTicketResponse> GetById(GetTicketRequest request);
-    Task<UpdateTicketResponse> Update(UpdateTicketRequest request);
+    Task<List<SupportTicket>> GetAllAsync();
+    Task<SupportTicket> GetById(Guid id);
+    Task<SupportTicket> Update(SupportTicket updatedTicket);
 }
