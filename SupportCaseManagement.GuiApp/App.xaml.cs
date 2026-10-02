@@ -3,11 +3,12 @@ using Microsoft.UI.Xaml;
 using SupportCaseManagement.Infrastructure;
 using SupportCaseManagement.Presentation.Navigation;
 using SupportCaseManagement.Presentation.ViewModels;
+using SupportCaseManagement.Presentation.Views;
 using System;
 
 namespace SupportCaseManagement.Presentation;
 
-public partial class App : Application
+public partial class App : Microsoft.UI.Xaml.Application
 {
     // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
     public static IServiceProvider Provider { get; private set; } = null;
@@ -19,9 +20,14 @@ public partial class App : Application
 
         services.AddApplication();
         services.AddInfrastructure();
+
         services.AddTransient<MainWindow>();
         services.AddSingleton<INavigationService, NavigationService>();
+
         services.AddTransient<OverviewViewModel>();
+
+        services.AddTransient<CasesViewModel>();
+        services.AddTransient<CasesView>();
 
         Provider = services.BuildServiceProvider();
     }
