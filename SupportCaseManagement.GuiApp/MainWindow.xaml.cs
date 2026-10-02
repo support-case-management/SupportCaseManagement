@@ -1,48 +1,52 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using SupportCaseManagement.Presentation.Navigation;
+using SupportCaseManagement.Presentation.ViewModels;
+using System.ComponentModel;
 
 namespace SupportCaseManagement.Presentation;
 
 public sealed partial class MainWindow : Window
 {
-    private readonly INavigationService _navigationService;
-    public MainWindow(INavigationService navigationSerivce)
+    public MainViewModel ViewModel { get; }
+    public MainWindow(MainViewModel viewModel)
     {
+        ViewModel = viewModel;
+
         InitializeComponent();
-
-        _navigationService = navigationSerivce;
-        _navigationService.Initalize(ContentFrame);
-        _navigationService.Navigate(AppPage.Overview);
-
     }
 
-    private void ContentFrame_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
     {
         MainNavigation.IsBackEnabled = true;
     }
 
-    private void MainNavigation_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+    private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        if (args.InvokedItemContainer is not NavigationViewItem item)
-            return;
-
-        AppPage? page = item.Tag?.ToString() switch
+        switch (args.InvokedItemContainer?.Tag)
         {
-            "overview" => AppPage.Overview,
-            "customers" => AppPage.Customers,
-            "cases" => AppPage.Cases,
-            "caseManager" => AppPage.CaseManager,
-            _ => null
-        };
+            case "overview":
+                ViewModel.ShowOverViewCommand.Execute(null);
+                break;
 
-        if (page is AppPage destination)
-            _navigationService.Navigate(destination);
+            case "cases":
+                ViewModel.ShowCasesViewCommand.Execute(null);
+                break;
+
+            case "customers":
+                ViewModel.ShowCustomersViewCommand.Execute(null);
+                break;
+
+            case "caseManager":
+                ViewModel.ShowCaseManagerViewCommand.Execute(null);
+                break;
+        }
     }
 
-    private void MainNavigation_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+    private void MainNavigation_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
-        _navigationService.GoBack();
+        // _navigationService.GoBack();
     }
 }
 

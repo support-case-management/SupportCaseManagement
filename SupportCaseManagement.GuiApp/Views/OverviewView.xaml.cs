@@ -4,13 +4,12 @@ using SupportCaseManagement.Presentation.ViewModels;
 
 namespace SupportCaseManagement.Presentation.Pages;
 
-
 public sealed partial class OverviewView : Page
 {
     public OverviewViewModel ViewModel { get; }
-    public OverviewView()
+    public OverviewView(OverviewViewModel viewModel)
     {
-        ViewModel = App.Provider.GetRequiredService<OverviewViewModel>();
+        ViewModel = viewModel;
 
         InitializeComponent();
     }

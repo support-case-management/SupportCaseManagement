@@ -25,7 +25,14 @@
             <NavigationViewItem x:Name="CustomersNavigationItem" Content="Kunder" Icon="People" Tag="customers" />
             <NavigationViewItem x:Name="CaseManagerNavigationItem" Content="Handläggare" Icon="People" Tag="caseManager" />
         </NavigationView.MenuItems>
-        <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated"/>
+
+        <Border>
+            <ContentControl 
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}"/>
+        </Border>
+        
     </NavigationView>
   
 </Window>

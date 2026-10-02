@@ -5,6 +5,6 @@ public enum AppPage
     Overview,
     Customers,
     Cases,
-    CaseManager,
+    CaseManager
 }
 
