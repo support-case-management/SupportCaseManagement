@@ -81,4 +81,16 @@ public class SupportTicket
         _comments.Add(comment);
     }
 
+    public void UpdateDetails(string title, string description)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            throw new ArgumentException("Rubrik får inte vara tom.");
+
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Beskrivning får inte vara tom.");
+
+        Title = title.Trim();
+        Description = description.Trim();
+    }
+
 }
