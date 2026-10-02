@@ -1,8 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Presentation.ViewModels;
-using System.Threading.Tasks;
-
 
 namespace SupportCaseManagement.Presentation.Views;
 
