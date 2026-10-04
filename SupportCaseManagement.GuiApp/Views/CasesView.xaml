@@ -38,5 +38,20 @@
             </StackPanel>
         </Grid>
         
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{x:Bind ViewModel.SupportTickets}"
+            IsItemClickEnabled="True"
+            ItemClick="SupportTickets_ItemClick"
+            SelectionMode="None">
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:SupportTicket">
+                    <TextBlock Text="{x:Bind Title}" Margin="8"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+        </ListView>
+        
     </Grid>
 </Page>

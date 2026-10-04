@@ -130,10 +130,20 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
         }
     }
 
+
     [RelayCommand]
     private void OpenCreateSupportTicket()
     {
         //_navigationService.Navigate(AppPage.);
+    }
+
+
+    [RelayCommand]
+    private void OpenSupportTicket(SupportTicket ticket)
+    {
+        if (ticket is null)
+            return;
+        _navigationService.Navigate(AppPage.CaseManager, ticket);
     }
 }
 
