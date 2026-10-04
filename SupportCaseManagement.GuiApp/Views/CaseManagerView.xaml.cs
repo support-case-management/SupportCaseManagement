@@ -1,17 +1,24 @@
-using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using SupportCaseManagement.Application.CaseWorker;
+using SupportCaseManagement.Presentation.ViewModels;
 
 namespace SupportCaseManagement.Presentation.Views;
 
-public sealed partial class CaseManagerView : Page
+namespace SupportCaseManagement.Presentation.Views
 {
-    public CaseManagerView()
+ 
+    public sealed partial class CaseManagerView : Page
     {
-        InitializeComponent();
+        public CaseManagerViewModel ViewModel { get; }
+        public CaseManagerView(CaseManagerViewModel viewModel)
+        {
+            ViewModel = viewModel;
+            InitializeComponent();
 
-        var service = App.Provider.GetRequiredService<CaseWorkerService>();
-        CaseWorkerBox.ItemsSource = service.GetAll();
-
+            var service = App.Provider.GetRequiredService<CaseWorkerService>();
+            CaseWorkerBox.ItemsSource = service.GetAll();
+        }
     }
 }

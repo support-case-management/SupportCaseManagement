@@ -1,57 +1,27 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.Views;
 using System;
 
 namespace SupportCaseManagement.Presentation.Navigation;
 
-public class NavigationService : INavigationService
-
+public partial class NavigationService(IServiceProvider services) : ObservableObject, INavigationService
 {
-    private Frame? _frame;
-    public bool CanGoBack => _frame?.CanGoBack == true;
+    [ObservableProperty]
+    public partial Page? CurrentPage { get; private set; }
 
-    public void GoBack()
+    public void Navigate(AppPage page)
     {
-        if (_frame is { CanGoBack: true })
+        CurrentPage = page switch
         {
-            _frame.GoBack();
-        }
-    }
-
-    public void Initalize(Frame frame)
-    {
-        _frame = frame;
-    }
-
-    public void Initalize()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Navigate(AppPage page, string? parameter = null)
-    {
-        var frame = _frame ?? throw new InvalidOperationException("Navigation has not been initialized.");
-
-        var pageType = page switch
-        {
-            // Här lägger du till nya sidor
-            AppPage.Overview => typeof(OverviewView),
-            AppPage.Customers => typeof(CustomersView),
-            AppPage.Cases => typeof(CasesView),
-            AppPage.CaseManager => typeof(CaseManagerView),
-            _ => throw new ArgumentOutOfRangeException($"Unable to navigate to {page}.")
+            AppPage.Overview => services.GetRequiredService<OverviewView>(),
+            AppPage.Customers => services.GetRequiredService<CustomersView>(),
+            AppPage.Cases => services.GetRequiredService<CasesView>(),
+            AppPage.CaseManager => services.GetRequiredService<CaseManagerView>(),
+            _ => throw new ArgumentOutOfRangeException(nameof(page))
         };
-
-        if (frame.CurrentSourcePageType == pageType && parameter is null)
-        {
-            return;
-        }
-
-        if (!frame.Navigate(pageType, parameter))
-        {
-            throw new InvalidOperationException($"Navigation to {page} failed.");
-        }
     }
 }
 

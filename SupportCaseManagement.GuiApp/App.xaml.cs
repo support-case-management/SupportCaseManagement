@@ -3,7 +3,9 @@ using Microsoft.UI.Xaml;
 using SupportCaseManagement.Application;
 using SupportCaseManagement.Infrastructure;
 using SupportCaseManagement.Presentation.Navigation;
+using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.ViewModels;
+using SupportCaseManagement.Presentation.Views;
 using System;
 
 namespace SupportCaseManagement.Presentation;
@@ -11,7 +13,7 @@ namespace SupportCaseManagement.Presentation;
 public partial class App : Microsoft.UI.Xaml.Application
 {
     // Gör så att vi kan komma åt propertyn Provider från andra klasser i applikationen
-    public static IServiceProvider Provider { get; private set; } = null;
+    private readonly IServiceProvider _services;
     private Window? _window;
 
     public App()
@@ -20,16 +22,34 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddApplication();
         services.AddInfrastructure();
-        services.AddTransient<MainWindow>();
-        services.AddSingleton<INavigationService, NavigationService>();
-        services.AddTransient<OverviewViewModel>();
 
-        Provider = services.BuildServiceProvider();
+        services.AddSingleton<INavigationService, NavigationService>();
+
+        services.AddSingleton<MainViewModel>();
+        services.AddSingleton<MainWindow>();
+
+        services.AddTransient<OverviewViewModel>();
+        services.AddTransient<OverviewView>();
+
+        services.AddTransient<CasesViewModel>();
+        services.AddTransient<CasesView>();
+
+        services.AddTransient<CustomersViewModel>();
+        services.AddTransient<CustomersView>();
+
+        services.AddTransient<CaseManagerViewModel>();
+        services.AddTransient<CaseManagerView>();
+
+        _services = services.BuildServiceProvider();
     }
 
-    protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _window = Provider.GetRequiredService<MainWindow>();
+        _window = _services.GetRequiredService<MainWindow>();
+
+        var navigation = _services.GetRequiredService<INavigationService>();
+        navigation.Navigate(AppPage.Overview);
+
         _window.Activate();
     }
 }
