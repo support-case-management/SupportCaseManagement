@@ -1,26 +1,43 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using SupportCaseManagement.Presentation.Navigation;
+using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.ViewModels;
+using SupportCaseManagement.Presentation.Views;
 using System.ComponentModel;
+using System.Linq;
 
 namespace SupportCaseManagement.Presentation;
 
 public sealed partial class MainWindow : Window
 {
+    private readonly INavigationService _navigationService;
     public MainViewModel ViewModel { get; }
-    public MainWindow(MainViewModel viewModel)
+    public MainWindow(MainViewModel viewModel, INavigationService navigationService)
     {
         ViewModel = viewModel;
 
+        _navigationService = navigationService;
+
         InitializeComponent();
+
+        if (_navigationService is INotifyPropertyChanged notifyService)
+        {
+            notifyService.PropertyChanged += (send, args) =>
+            {
+                if (args.PropertyName == nameof(INavigationService.CanGoBack))
+                {
+                    MainNavigation.IsBackEnabled = _navigationService.CanGoBack;
+                }
+            };
+        }
+
     }
 
-    private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
-    {
-        MainNavigation.IsBackEnabled = true;
-    }
+    //private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+    //{
+    //    MainNavigation.IsBackEnabled = true;
+    //}
 
     private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
@@ -46,7 +63,26 @@ public sealed partial class MainWindow : Window
 
     private void MainNavigation_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
-        // _navigationService.GoBack();
+        if (_navigationService.CanGoBack)
+        {
+            _navigationService.GoBack();
+            MainNavigation.SelectedItem = _navigationService.CurrentPage switch
+            {
+                OverviewView => GetMenuItem("overview"),
+                CustomersView => GetMenuItem("customers"),
+                CasesView => GetMenuItem("cases"),
+                CaseManagerView => GetMenuItem("caseManager"),
+                _ => MainNavigation.SelectedItem
+            };
+        }
     }
+
+    private NavigationViewItem? GetMenuItem(string tag)
+    {
+        return MainNavigation.MenuItems
+            .OfType<NavigationViewItem>()
+            .FirstOrDefault(x => x.Tag?.ToString() == tag);
+    }
+
 }
 
