@@ -12,30 +12,42 @@
     <StackPanel Margin="24" Spacing="12">
         <TextBlock Text="Ärendedetalj"/>
         <TextBlock Text="Kund" />
-        <TextBlock x:Name="CustomerName" Text="Ingen Kund vald"/>
+        <TextBlock x:Name="CustomerName" 
+                   Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName.Value, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
 
-        <TextBox x:Name="Title" Header="Rubrik"/>
+        <TextBox x:Name="Title" 
+                 Header="Rubrik"
+                 Text="{x:Bind ViewModel.SelectedTicket.Title, Mode=OneWay}"
+                 />
 
         <TextBox x:Name="DescriptionBox" 
                  Header="Beskrivning"
+                 Text="{x:Bind ViewModel.SelectedTicket.Description, Mode=OneWay}"
                  MinHeight="100"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
+                 
                  
                  />
 
         <ComboBox x:Name="CaseWorkerBox"
                    Header="Ansvarig handläggare"
-                  PlaceholderText="Välj en handläggare"
-          
+                   PlaceholderText="Välj en handläggare"
+                   SelectedItem="{x:Bind ViewModel.SelectedTicket.AssignedCaseWorker, Mode=OneWay}"
                    />
-        <ComboBox x:Name="PriorityBox" Header="prioritet">
+        <ComboBox x:Name="PriorityBox" 
+                  Header="prioritet"
+                  SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=OneWay}"
+                  >
             <ComboBoxItem Content="Låg"/>
             <ComboBoxItem Content="Normal"/>
             <ComboBoxItem Content="Hög"/>
         </ComboBox>
 
-        <ComboBox x:Name="Status" Header="status">
+        <ComboBox x:Name="Status" 
+                  Header="status"
+                  SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=OneWay}"
+                  >
             <ComboBoxItem Content="Nytt"/>
             <ComboBoxItem Content="Pågående"/>
             <ComboBoxItem Content="Löst"/>

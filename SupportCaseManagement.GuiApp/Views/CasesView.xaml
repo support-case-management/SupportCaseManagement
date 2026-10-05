@@ -33,7 +33,7 @@
 
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBlock 
-                        Text="{x:Bind ViewModel.StatusMessage}"/>
+                        Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
