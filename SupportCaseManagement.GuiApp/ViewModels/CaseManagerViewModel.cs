@@ -8,6 +8,7 @@ public partial class CaseManagerViewModel : ObservableObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PriorityIndex))]
     [NotifyPropertyChangedFor(nameof(StatusIndex))]
+    [NotifyPropertyChangedFor(nameof(CreatedAtText))]
     public partial SupportTicket? SelectedTicket { get; set; }
 
     public int PriorityIndex => 
@@ -15,5 +16,8 @@ public partial class CaseManagerViewModel : ObservableObject
     public int StatusIndex => 
         SelectedTicket is null ? -1 : (int)SelectedTicket.Status;
 
+    public string CreatedAtText =>
+        SelectedTicket is null 
+        ? string.Empty:SelectedTicket.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
 }
 

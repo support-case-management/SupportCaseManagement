@@ -11,6 +11,7 @@
 
     <StackPanel Margin="24" Spacing="12">
         <TextBlock Text="Ärendedetalj"/>
+        <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
         <TextBlock Text="Kund" />
         <TextBlock x:Name="CustomerName" 
                    Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName.Value, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>

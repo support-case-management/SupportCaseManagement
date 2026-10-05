@@ -41,7 +41,7 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
             {
                 SupportTickets.Add(supportTicket);
             }
-
+   
             if (SupportTickets.Count > 0)
             {
                 StatusMessage = $"{SupportTickets.Count} ärenden i listan";
