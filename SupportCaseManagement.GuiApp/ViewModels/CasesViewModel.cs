@@ -19,6 +19,9 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     public ObservableCollection<SupportTicket> SupportTickets { get; } = [];
 
     [ObservableProperty]
+    public partial Customer? SelectedSupportTicket { get; set; }
+
+    [ObservableProperty]
     public partial string StatusMessage { get; private set; } = string.Empty;
 
     [ObservableProperty]
@@ -42,7 +45,7 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
                 SupportTickets.Add(supportTicket);
             }
 
-            
+
             if (SupportTickets.Count > 0)
             {
                 StatusMessage = $"{SupportTickets.Count} ärenden i listan";
@@ -135,5 +138,10 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     {
         //_navigationService.Navigate(AppPage.);
     }
-}
 
+    [RelayCommand]
+    private void OpenSupportTicketDisplay()
+    {
+        //_navigationService.Navigate(AppPage.);
+    }
+}
