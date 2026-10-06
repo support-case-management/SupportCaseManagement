@@ -21,11 +21,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <TextBlock Text="Ärenden" FontSize="32" />
-        </Grid>
+        <!--Rubrik-->
+        <TextBlock 
+            Text="Ärenden" 
+            FontSize="32" />
 
-        <Grid Grid.Row="1">
+        <!--Statusmeddelande och sökruta-->
+        <Grid Grid.Row="1" ColumnSpacing="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -33,21 +35,141 @@
 
             <TextBlock 
                 Grid.Column="0"
-                FontSize="14"
+                FontSize="16"
                 Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"/>
 
-            <Button
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="5">
+                <SymbolIcon Symbol="Find"/>
+
+                <TextBox 
+                    x:Name="SearchTxtb"
+                    PlaceholderText="Sök ärende"
+                    Width="200"
+                    TextChanging="SearchTxtb_TextChanging"/>
+            </StackPanel>
+        </Grid>
+
+        <!--Ärendelistan-->
+        <Border 
+            Grid.Row="2"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            CornerRadius="12"
+            >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Padding="0,8"
+                    Background="Gray">
+                    
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Text="TITEL"
+                            Margin="48,0,0,0" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="SKAPAD DATUM" />
+                        
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="PRIORITET" />
+
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="STATUS" />
+
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="KUND" />
+                    </Grid>
+                </Border>
+
+                <ListView
+                    Grid.Row="1"
+                    ItemsSource="{x:Bind ViewModel.SupportTickets}"
+                    SelectedItem="{x:Bind ViewModel.SelectedSupportTicket, Mode=TwoWay}"
+                    ItemClick="SupportTicketList_ItemClick">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SupportTicket">
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="36" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border>
+                                        <SymbolIcon Symbol="Document" />
+                                    </Border>
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Text="{x:Bind Title}" />
+                                </Grid>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="{x:Bind CreatedAt}" />
+                                
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="{x:Bind Priority}" />
+                                
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Text="{x:Bind Status}" />
+                                
+                                <TextBlock
+                                    Grid.Column="4"
+                                    Text="{x:Bind Customer.CustomerName.Value}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <!--Lägga till ärende knapp-->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 Command="{x:Bind ViewModel.OpenCreateSupportTicketCommand}">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <SymbolIcon Symbol="Add" />
-                    <TextBlock Text="Lägg till ärende" />
-                </StackPanel>
-            </Button>
-        </Grid>
-        
-        
-
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <SymbolIcon Symbol="Add" />
+                        <TextBlock Text="Lägg till ärende" />
+                    </StackPanel>
+                </Button>
+            </Grid>
     </Grid>
 </Page>

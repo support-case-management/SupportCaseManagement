@@ -11,12 +11,12 @@ public class SupportTicket
     public TicketPriority Priority { get; private set; }
     public TicketStatus Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public Customer Customer { get; init; }
+    public Customer Customer { get; set; }
 
     // Privat konstruktor för deserialisering/ORM
     private SupportTicket() { }
 
-    public SupportTicket(string title, string description, Guid customerId, TicketPriority priority)
+    public SupportTicket(string title, string description, Guid customerId, TicketPriority priority, DateTime createdAt)
     {
         // 3.2 Validering i domänen
         if (string.IsNullOrWhiteSpace(title))
@@ -34,6 +34,6 @@ public class SupportTicket
         CustomerId = customerId;
         Priority = priority;
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
-        CreatedAt = DateTime.UtcNow;
+        CreatedAt = createdAt;
     }
 }

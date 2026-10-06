@@ -4,6 +4,7 @@ using SupportCaseManagement.Application.Features.SupportTicketList;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     private readonly INavigationService _navigationService = navigationService;
 
     public ObservableCollection<SupportTicket> SupportTickets { get; } = [];
+
+    [ObservableProperty]
+    public partial Customer? SelectedSupportTicket { get; set; }
 
     [ObservableProperty]
     public partial string StatusMessage { get; private set; } = string.Empty;
@@ -134,6 +138,12 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     private void OpenCreateSupportTicket()
     {
         //_navigationService.Navigate(AppPage.);
+    }
+
+    [RelayCommand]
+    private void OpenSupportTicketDisplay()
+    {
+        _navigationService.Navigate(AppPage.Customers);
     }
 }
 
