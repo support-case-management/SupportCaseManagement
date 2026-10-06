@@ -18,12 +18,12 @@
 
         <TextBox x:Name="Title" 
                  Header="Rubrik"
-                 Text="{x:Bind ViewModel.SelectedTicket.Title, Mode=OneWay}"
+                 Text="{x:Bind ViewModel.Title, Mode=TwoWay}"
                  />
 
         <TextBox x:Name="DescriptionBox" 
                  Header="Beskrivning"
-                 Text="{x:Bind ViewModel.SelectedTicket.Description, Mode=OneWay}"
+                 Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
                  MinHeight="100"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
@@ -34,11 +34,11 @@
         <ComboBox x:Name="CaseWorkerBox"
                    Header="Ansvarig handläggare"
                    PlaceholderText="Välj en handläggare"
-                   SelectedItem="{x:Bind ViewModel.SelectedTicket.AssignedCaseWorker, Mode=OneWay}"
+                   SelectedItem="{x:Bind ViewModel.AssignedCaseWorker, Mode=TwoWay}"
                    />
         <ComboBox x:Name="PriorityBox" 
                   Header="prioritet"
-                  SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=OneWay}"
+                  SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=TwoWay}"
                   >
             <ComboBoxItem Content="Låg"/>
             <ComboBoxItem Content="Normal"/>
@@ -47,12 +47,16 @@
 
         <ComboBox x:Name="Status" 
                   Header="status"
-                  SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=OneWay}"
+                  SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=TwoWay}"
                   >
             <ComboBoxItem Content="Nytt"/>
             <ComboBoxItem Content="Pågående"/>
             <ComboBoxItem Content="Löst"/>
         </ComboBox>
+        
+        <Button Content="Spara ändringar" Command="{x:Bind ViewModel.SaveCommand}" />
+        <TextBlock Text="{x:Bind ViewModel.SaveMessage, Mode=OneWay}" 
+                   TextWrapping="Wrap"/>
 
         <TextBox x:Name="CommentSpace"
                  Header="Ny Kommentar"

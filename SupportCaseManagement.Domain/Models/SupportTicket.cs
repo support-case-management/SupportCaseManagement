@@ -1,5 +1,6 @@
 ﻿using SupportCaseManagement.Domain.Enums;
 using System.Net.WebSockets;
+using System.Text.Json.Serialization;
 
 namespace SupportCaseManagement.Domain.Models;
 
@@ -17,8 +18,35 @@ public class SupportTicket
     public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();
     private readonly List<Comment> _comments = [];
 
-    // Privat konstruktor för deserialisering/ORM
-    private SupportTicket() { }
+    // Återskapar ett Ärende från Json med sparat ID och datum. Används vid deserialisering av ärenden från fil.
+    [JsonConstructor]
+    public SupportTicket(
+        Guid id,
+        string title,
+        string description,
+        Guid customerId,
+        TicketPriority priority,
+        TicketStatus status,
+        DateTime createdAt,
+        string? assignedCaseWorker,
+        IReadOnlyList<Comment> comments)
+
+    {
+
+        Id = id;
+        CustomerId = customerId;
+        CreatedAt = createdAt;
+
+        UpdateDetails(title, description);
+        ChangePriority(priority);
+        AssignCaseWorker(assignedCaseWorker);
+        ChangeStatus(status);
+
+        if (comments is not null)
+        {
+            _comments.AddRange(comments);
+        }
+    }
 
     public SupportTicket(string title, string description, Guid customerId, TicketPriority priority)
     {
@@ -73,6 +101,15 @@ public class SupportTicket
 
         Status = newStatus;
     }
+    public void ChangePriority(TicketPriority newPriority)
+    {
+        if (!Enum.IsDefined(newPriority))
+        {
+            throw new ArgumentException("Ogiltig prioritet");
+        }
+        Priority = newPriority;
+    }
+
 
     //lägger till en kommentar med aktuell tid. Tom text avvisas
     public void AddComment(string text)
