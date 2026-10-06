@@ -19,4 +19,16 @@ public sealed partial class CasesView : Page
     {
         await ViewModel.LoadAllSupportTicketsAsync();
     }
+
+
+
+    private async void SearchTxtb_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+    {
+        await ViewModel.LoadSupportTicketsContaining(SearchTxtb.Text);
+    }
+
+    private void SupportTicketList_ItemClick(object sender, ItemClickEventArgs e)
+    {
+
+    }
 }
