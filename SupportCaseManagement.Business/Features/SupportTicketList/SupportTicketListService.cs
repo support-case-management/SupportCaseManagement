@@ -23,7 +23,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         _filteredTicketList.Clear();
         _filterOn = false;
 
-        return supportTickets.OrderBy(ticket => ticket.CreatedAt);
+        return supportTickets.OrderByDescending(ticket => ticket.CreatedAt);
     }
 
     /// <summary>
@@ -38,12 +38,17 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         // tar fram de ärenden som har den givna statusen genom linq, som fungerar så här:
         // from - som i en foreach-loop, ger ett namn på elementen som ska gås igenom ett för ett och anger vilken lista som ska gås igenom, men behöver inte skriva datatypen
         // where - kravet som måste uppfyllas för att ärendet ska tas med, i detta fall att ärendets status är detsamma som den givna statusen
-        // orderby - säger hur ärendena som väljs ut ska sorteras, i detta fall efter datum
         // select - vad som ska läggas in i den nya listan, i detta fall hela ärende-objektet som uppfyller kravet
         IEnumerable<SupportTicket> filteredList = from ticket in supportTickets
                                                   where ticket.Status == status
-                                                  orderby ticket.CreatedAt
                                                   select ticket;
+
+        if (filteredList is null)
+        {
+            filteredList = [];
+        }
+
+        filteredList.OrderByDescending(ticket => ticket.CreatedAt);
 
         _filteredTicketList = filteredList.ToList();
         _filterOn = true;
@@ -78,13 +83,14 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         IEnumerable<SupportTicket> searchedTickets = from ticket in supportTickets
                                                      where ticket.Title.ToLower().Contains(normalizedSearchText) ||
                                                            ticket.Customer.CustomerName.Value.ToLower().Contains(normalizedSearchText)
-                                                     orderby ticket.CreatedAt
                                                      select ticket;
 
         if (searchedTickets is null)
         {
             searchedTickets = [];
         }
+
+        searchedTickets.OrderByDescending(ticket => ticket.CreatedAt);
 
         return searchedTickets;
     }
