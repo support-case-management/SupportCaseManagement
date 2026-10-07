@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Presentation.ViewModels;
+using System.Threading.Tasks;
 
 namespace SupportCaseManagement.Presentation.Views;
 
@@ -20,15 +21,13 @@ public sealed partial class CasesView : Page
         await ViewModel.LoadAllSupportTicketsAsync();
     }
 
-
-
     private async void SearchTxtb_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
     {
         await ViewModel.LoadSupportTicketsContaining(SearchTxtb.Text);
     }
 
-    private void SupportTicketList_ItemClick(object sender, ItemClickEventArgs e)
+    private async Task SupportTicketList_ItemClick(object sender, ItemClickEventArgs e)
     {
-
+        ViewModel.
     }
 }
