@@ -44,8 +44,7 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
             {
                 SupportTickets.Add(supportTicket);
             }
-
-
+   
             if (SupportTickets.Count > 0)
             {
                 StatusMessage = $"{SupportTickets.Count} ärenden i listan";
@@ -133,15 +132,20 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
         }
     }
 
+
     [RelayCommand]
     private void OpenCreateSupportTicket()
     {
         //_navigationService.Navigate(AppPage.);
     }
 
+
     [RelayCommand]
-    private void OpenSupportTicketDisplay()
+    private void OpenSupportTicket(SupportTicket ticket)
     {
-        //_navigationService.Navigate(AppPage.);
+        if (ticket is null)
+            return;
+        _navigationService.Navigate(AppPage.CaseManager, ticket);
     }
 }
+

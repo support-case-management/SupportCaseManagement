@@ -51,7 +51,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
     /// <returns>en lista med alla sparade ärenden</returns>
     public async Task<List<SupportTicket>> GetAllAsync()
     {
-        if (!File.Exists(_supportTicketsFilePath))
+       if (!File.Exists(_supportTicketsFilePath))
         {
             return [];
         }
@@ -63,6 +63,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
 
         return supportTickets;
     }
+
 
     /// <summary>
     /// Hämtar ett ärende med det givna id:t från den sparade listan av ärenden
@@ -105,6 +106,11 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
                 supportTickets[index] = updatedTicket;
                 break;
             }
+        }
+
+        if (index == supportTickets.Count)
+        {
+            throw new InvalidOperationException("Ärendet kunde inte hittas i den sparade filen");
         }
 
         await SaveAllAsync(supportTickets);

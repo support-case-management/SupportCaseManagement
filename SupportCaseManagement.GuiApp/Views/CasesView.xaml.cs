@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.ViewModels;
 using System.Threading.Tasks;
 
@@ -30,4 +31,15 @@ public sealed partial class CasesView : Page
     {
         ViewModel.
     }
+}
+
+
+   private void SupportTickets_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        if (e.ClickedItem is SupportTicket ticket)
+        {
+            ViewModel.OpenSupportTicketCommand.Execute(ticket);
+        }
+    }
+
 }
