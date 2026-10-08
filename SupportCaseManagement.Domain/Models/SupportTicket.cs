@@ -18,6 +18,58 @@ public class SupportTicket
     public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();
     private readonly List<Comment> _comments = [];
 
+    [JsonIgnore]
+    public string SupportTicketStatus
+    {
+        get
+        {
+            string supportTicketStatus = string.Empty;
+
+            switch(Status)
+            {
+                case TicketStatus.New:
+                    supportTicketStatus = "Nytt";
+                    break;
+
+                case TicketStatus.InProgress:
+                    supportTicketStatus = "Pågående";
+                    break;
+
+                case TicketStatus.Closed:
+                    supportTicketStatus = "Löst";
+                    break;
+            }
+
+            return supportTicketStatus;
+        }
+    }
+
+    [JsonIgnore]
+    public string SupportTicketPriority
+    {
+        get
+        {
+            string supportTicketStatus = string.Empty;
+
+            switch(Priority)
+            {
+                case TicketPriority.Low:
+                    supportTicketStatus = "Låg";
+                    break;
+
+                case TicketPriority.Normal:
+                    supportTicketStatus = "Normal";
+                    break;
+
+                case TicketPriority.High:
+                    supportTicketStatus = "Hög";
+                    break;
+            }
+
+            return supportTicketStatus;
+        }
+    }
+
     // Återskapar ett Ärende från Json med sparat ID och datum. Används vid deserialisering av ärenden från fil.
     [JsonConstructor]
     public SupportTicket(
