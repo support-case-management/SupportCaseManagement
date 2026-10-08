@@ -10,11 +10,11 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     // en lista med alla ärenden som fitrerats fram för att kunna använda filter och söka efter ett eller flera ärenden samtidigt
     private List<SupportTicket> _filteredTicketList = [];
     // en kontroll för om användaren har ett  filter på eller inte
-    private bool _filterOn = false;
+    private bool _isFilterOn = false;
 
     public bool IsFilterOn
     {
-        get { return _filterOn; }
+        get { return _isFilterOn; }
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         List<SupportTicket> supportTickets = await _supportTicketRepository.GetAllAsync();
 
         _filteredTicketList.Clear();
-        _filterOn = false;
+        _isFilterOn = false;
 
         return supportTickets.OrderByDescending(ticket => ticket.CreatedAt);
     }
@@ -56,7 +56,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
         filteredList.OrderByDescending(ticket => ticket.CreatedAt);
 
         _filteredTicketList = filteredList.ToList();
-        _filterOn = true;
+        _isFilterOn = true;
 
         return filteredList;
     }
@@ -71,7 +71,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     {
         List<SupportTicket> supportTickets;
 
-        if (_filterOn)
+        if (_isFilterOn)
         {
             // om ett filter är på används den filtrerade listan
             supportTickets = _filteredTicketList;
