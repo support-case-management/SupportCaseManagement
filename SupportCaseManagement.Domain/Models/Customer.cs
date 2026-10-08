@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json.Serialization;
 
 namespace SupportCaseManagement.Domain.Models;
@@ -6,13 +7,14 @@ namespace SupportCaseManagement.Domain.Models;
 public class Customer
 {
     private static readonly int _minNameLength = 2;
+    private List<SupportTicket> _supportTickets;
 
     public Guid CustomerId { get; init; }
     public string CustomerName { get; private set; }
     public string EmailAddress { get; private set; }
 
     public bool IsCompany { get; private set; }
-    public List<SupportTicket> TicketList { get; set; } = [];
+    public IReadOnlyList<SupportTicket> TicketList => _supportTickets.AsReadOnly();
 
     [JsonIgnore]
     public string CustomerType => IsCompany ? "Företag" : "Privatkund";
@@ -24,6 +26,7 @@ public class Customer
         CustomerName = ValidateCustomerName(customerName);
         EmailAddress = ValidateEmailAddress(emailAddress);
         IsCompany = isCompany;
+        _supportTickets = new List<SupportTicket>();
     }
 
     private static Guid ValidateCustomerId(Guid customerId)
@@ -73,5 +76,13 @@ public class Customer
     public void ChangeIsCompany(bool isCompany)
     {
         IsCompany = isCompany;
+    }
+
+    public void AddSupportTicket(SupportTicket supportTicket)
+    {
+        if (supportTicket is not null)
+        {
+            _supportTickets.Add(supportTicket);
+        }
     }
 }
