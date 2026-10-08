@@ -33,7 +33,7 @@ public sealed partial class CasesView : Page
         {
             await ViewModel.LoadSupportTicketsContaining(searchText);
         }
-        else if (ViewModel.FilterOn)
+        else if (ViewModel.IsFilterOn)
         {
             await ViewModel.LoadAllSupportTicketsAsync();
         }

@@ -28,11 +28,11 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
 
     public bool IsNotBusy => !IsBusy;
 
-    public bool FilterOn
+    public bool IsFilterOn
     {
         get
         {
-            return _ticketListService.FilterOn;
+            return _ticketListService.IsFilterOn;
         }
     }
 
