@@ -35,7 +35,7 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
 
     [ObservableProperty]
     public partial int TotalNumberOfSupportTickets { get; private set; }
-
+     
     public async Task LoadAllSupportTicketsAsync()
     {
         IsBusy = true;
