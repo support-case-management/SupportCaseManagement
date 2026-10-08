@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using SupportCaseManagement.Application.Features.CreateSupportTicket;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Interfaces;
+using SupportCaseManagement.Domain.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -16,25 +17,25 @@ public partial class CreateSupportTicketViewModel : ObservableObject
 
     public TicketPriority[] PriorityOptions { get; } = Enum.GetValues<TicketPriority>();
 
-    public ObservableCollection<Customer> Customers { get; } = new();
+    public ObservableCollection<Customer> Customers { get; } = [];
 
     [ObservableProperty]
-    private string _title = string.Empty;
+    public partial string Title { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private string _description = string.Empty;
+    public partial string Description { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private Customer? _selectedCustomer;
+    public partial Customer? SelectedCustomer { get; set; }
 
     [ObservableProperty]
-    private TicketPriority _selectedPriority = TicketPriority.Normal;
+    public partial TicketPriority SelectedPriority { get; set; }
 
     [ObservableProperty]
-    private string _errorMessage = string.Empty;
+    public partial string ErrorMessage { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private string _successMessage = string.Empty;
+    public partial string SuccessMessage { get; set; } = string.Empty;
 
     public CreateSupportTicketViewModel(
          ICreateSupportTicketService createSupportTicketService,
@@ -48,8 +49,9 @@ public partial class CreateSupportTicketViewModel : ObservableObject
 
     public async Task LoadCustomersAsync()
     {
-        Customers.Clear();
+
         var customers = await _customerRepository.GetAllAsync();
+        Customers.Clear();
         foreach (var customer in customers)
         {
             Customers.Add(customer);
