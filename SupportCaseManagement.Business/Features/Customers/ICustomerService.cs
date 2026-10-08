@@ -8,5 +8,5 @@ public interface ICustomerService
     Task<CreateCustomerResponse> CreateCustomerAsync(CreateCustomerRequest request);
     Task<GetAllCustomersResponse> GetAllCustomersAsync();
     Task<GetCustomerByIdResponse> GetCustomerByIdAsync(Guid customerId);
-    Task<UpdateCustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest);
+    Task<UpdateCustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest request);
 }
