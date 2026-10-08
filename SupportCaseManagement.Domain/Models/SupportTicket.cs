@@ -11,7 +11,9 @@ public class SupportTicket
     public TicketPriority Priority { get; private set; }
     public TicketStatus Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public Customer Customer { get; init; }
+    //public Customer Customer { get; init; }
+    public string? AssingnedTechnician { get; private set; } // Handläggare som är tilldelad är valfri (nullable) eftersom den inte alltid är tilldelad.
+
 
     // Privat konstruktor för deserialisering/ORM
     private SupportTicket() { }
