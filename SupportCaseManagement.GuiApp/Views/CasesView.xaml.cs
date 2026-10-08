@@ -35,6 +35,10 @@ public sealed partial class CasesView : Page
         }
         else if (ViewModel.IsFilterOn)
         {
+            await ViewModel.LoadSupportTicketsFilteredBy((TicketStatus)FilterCmb.SelectedIndex);
+        }
+        else
+        {
             await ViewModel.LoadAllSupportTicketsAsync();
         }
 
