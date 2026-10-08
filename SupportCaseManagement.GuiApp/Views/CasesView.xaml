@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--Rubrik-->
@@ -155,7 +156,7 @@
             </Grid>
         </Border>
 
-        <!--Lägga till ärende knapp-->
+        <!--Filter och Lägga till ärende knapp-->
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -188,5 +189,20 @@
                 </StackPanel>
             </Button>
         </Grid>
+
+        <!--Totals antal sparade ärenden-->
+        
+
+            <StackPanel Grid.Row="4" Margin="0,20" Orientation="Horizontal" Spacing="5">
+                <TextBlock 
+                    VerticalAlignment="Center"
+                    Text="Totalt antal sparade ärenden:"
+                    FontSize="16" />
+                <TextBlock 
+                    VerticalAlignment="Center"
+                    Text="{x:Bind ViewModel.TotalNumberOfSupportTickets}"
+                    FontSize="16"/>
+            </StackPanel>
+       
     </Grid>
 </Page>
