@@ -4,6 +4,7 @@ using SupportCaseManagement.Application.Features.SupportTicketList;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -19,9 +20,6 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     public ObservableCollection<SupportTicket> SupportTickets { get; } = [];
 
     [ObservableProperty]
-    public partial Customer? SelectedSupportTicket { get; set; }
-
-    [ObservableProperty]
     public partial string StatusMessage { get; private set; } = string.Empty;
 
     [ObservableProperty]
@@ -29,6 +27,14 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
     public partial bool IsBusy { get; private set; }
 
     public bool IsNotBusy => !IsBusy;
+
+    public bool FilterOn
+    {
+        get
+        {
+            return _ticketListService.FilterOn;
+        }
+    }
 
     public async Task LoadAllSupportTicketsAsync()
     {
@@ -44,15 +50,8 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
             {
                 SupportTickets.Add(supportTicket);
             }
-   
-            if (SupportTickets.Count > 0)
-            {
-                StatusMessage = $"{SupportTickets.Count} ärenden i listan";
-            }
-            else
-            {
-                StatusMessage = "Det finns inga sparade ärenden än";
-            }
+
+            SetStatusMessage("ärende i listan", "ärenden i listan", "Det finns inga sparade ärenden än");
         }
         catch
         {
@@ -61,6 +60,22 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
         finally
         {
             IsBusy = false;
+        }
+    }
+
+    private void SetStatusMessage(string textOneticket, string textMultipleTickets, string textNoTickets)
+    {
+        if (SupportTickets.Count == 1)
+        {
+            StatusMessage = $"{SupportTickets.Count} {textOneticket}";
+        }
+        else if (SupportTickets.Count > 1)
+        {
+            StatusMessage = $"{SupportTickets.Count} {textMultipleTickets}";
+        }
+        else
+        {
+            StatusMessage = textNoTickets;
         }
     }
 
@@ -79,14 +94,9 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
                 SupportTickets.Add(supportTicket);
             }
 
-            if (SupportTickets.Count > 0)
-            {
-                StatusMessage = $"{SupportTickets.Count} ärenden med status {status}";
-            }
-            else
-            {
-                StatusMessage = $"Det finns inga ärenden med status {status}";
-            }
+            SetStatusMessage("ärende med status ", "ärenden med status ", "Det finns inga ärenden med status ");
+
+            StatusMessage += GetStatusString(status);
         }
         catch
         {
@@ -96,6 +106,28 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
         {
             IsBusy = false;
         }
+    }
+
+    private string GetStatusString(TicketStatus status)
+    {
+        string statusString = string.Empty;
+
+        switch(status)
+        {
+            case TicketStatus.New:
+                statusString = "'Nytt'";
+                break;
+
+            case TicketStatus.InProgress:
+                statusString = "'Pågående'";
+                break;
+
+            case TicketStatus.Closed:
+                statusString = "'Löst'";
+                break;
+        }
+
+        return statusString;
     }
 
     public async Task LoadSupportTicketsContaining(string text)
@@ -113,14 +145,9 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
                 SupportTickets.Add(supportTicket);
             }
 
-            if (SupportTickets.Count > 0)
-            {
-                StatusMessage = $"{SupportTickets.Count} träffar för '{text}'";
-            }
-            else
-            {
-                StatusMessage = $"Det finns inga träffar för '{text}'";
-            }
+            SetStatusMessage("träff för", "träffar för", "Det finns inga träffar för");
+
+            StatusMessage += $" '{text}'";
         }
         catch
         {

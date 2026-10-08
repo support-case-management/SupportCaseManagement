@@ -66,7 +66,7 @@ public class SupportTicket
         CustomerId = customerId;
         Priority = priority;
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
-        CreatedAt = createdAt;
+        CreatedAt = DateTime.UtcNow;
     }
 
     public void AssignCaseWorker(string? name)
