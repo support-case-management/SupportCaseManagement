@@ -140,11 +140,11 @@
 
                                 <TextBlock
                                     Grid.Column="2"
-                                    Text="{x:Bind Priority}" />
+                                    Text="{x:Bind SupportTicketPriority}" />
 
                                 <TextBlock
                                     Grid.Column="3"
-                                    Text="{x:Bind Status}" />
+                                    Text="{x:Bind SupportTicketStatus}" />
 
                                 <TextBlock
                                     Grid.Column="4"
