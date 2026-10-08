@@ -8,10 +8,10 @@ public class Customer
     private static readonly int _minNameLength = 2;
 
     public Guid CustomerId { get; init; }
-    public string CustomerName { get; set; }
+    public string CustomerName { get; private set; }
     public string EmailAddress { get; private set; }
 
-    public bool IsCompany { get; set; }
+    public bool IsCompany { get; private set; }
     public List<SupportTicket> TicketList { get; set; } = [];
 
     [JsonIgnore]
@@ -68,5 +68,10 @@ public class Customer
     public void ChangeEmailAddress(string emailAddress)
     {
         EmailAddress = ValidateEmailAddress(emailAddress);
+    }
+
+    public void ChangeIsCompany(bool isCompany)
+    {
+        IsCompany = isCompany;
     }
 }
