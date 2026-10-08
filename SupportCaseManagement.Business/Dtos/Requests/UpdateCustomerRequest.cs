@@ -2,6 +2,7 @@
 
 public record UpdateCustomerRequest
 (
+    Guid CustomerId,
     string CustomerName,
     string EmailAddress,
     bool IsCompany

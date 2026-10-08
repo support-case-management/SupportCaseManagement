@@ -17,7 +17,7 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
         {
             Guid customerId = Guid.NewGuid();
 
-            Customer customer = new Customer(customerId, request.CustomerName, request.EmailAddress, request.IsCompany);
+            Customer customer = new(customerId, request.CustomerName, request.EmailAddress, request.IsCompany);
 
             List<Customer> customers = await _customerRepository.GetAllAsync();
             customers.Add(customer);
@@ -78,8 +78,62 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
         return response;
     }
 
-    public Task<UpdateCustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest request)
+    public async Task<UpdateCustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest request)
     {
-        throw new NotImplementedException();
+        UpdateCustomerResponse response;
+
+        try
+        {
+            Customer? customer = GetCustomerByIdAsync(request.CustomerId).Result.Customer;
+
+            if (customer is not null)
+            {
+                customer = UpdateCustomerName(request.CustomerName, customer);
+                customer = UpdateCustomerEmail(request.EmailAddress, customer);
+                customer = UpdateCustomerIsCompany(request.IsCompany, customer);
+
+                response = new UpdateCustomerResponse(true, customer, null);
+            }
+            else
+            {
+                response = new UpdateCustomerResponse(false, null, "Kunden kunde inte hittas");
+            }
+        }
+        catch(Exception ex)
+        {
+            response = new UpdateCustomerResponse(false, null, ex.Message);
+        }
+
+        return response;
+    }
+
+    private Customer UpdateCustomerName(string customerName, Customer customer)
+    {
+        if (!string.IsNullOrWhiteSpace(customerName) && !customerName.Equals(customer.CustomerName))
+        {
+            customer.Rename(customerName);
+        }
+
+        return customer;
+    }
+
+    private Customer UpdateCustomerEmail(string emailAddress, Customer customer)
+    {
+        if (!string.IsNullOrWhiteSpace(emailAddress) && !emailAddress.Equals(customer.EmailAddress))
+        {
+            customer.ChangeEmailAddress(emailAddress);
+        }
+
+        return customer;
+    }
+
+    private Customer UpdateCustomerIsCompany(bool isCompany, Customer customer)
+    {
+        if (isCompany =! customer.IsCompany)
+        {
+            customer.ChangeIsCompany(isCompany);
+        }
+
+        return customer;
     }
 }
