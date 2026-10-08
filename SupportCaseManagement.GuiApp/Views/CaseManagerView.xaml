@@ -15,7 +15,7 @@
         <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
         <TextBlock Text="Kund" />
         <TextBlock x:Name="CustomerName" 
-                   Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName.Value, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
+                   Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
 
         <TextBox x:Name="Title" 
                  Header="Rubrik"
