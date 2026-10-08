@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using SupportCaseManagement.Application.Features.CreateSupportTicket;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Interfaces;
+using SupportCaseManagement.Domain.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

@@ -148,7 +148,7 @@
 
                                 <TextBlock
                                     Grid.Column="4"
-                                    Text="{x:Bind Customer.CustomerName.Value}" />
+                                    Text="{x:Bind Customer.CustomerName}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
