@@ -30,11 +30,11 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
 
     public bool IsFilterOn
     {
-        get
-        {
-            return _ticketListService.IsFilterOn;
-        }
+        get { return _ticketListService.IsFilterOn; }
     }
+
+    [ObservableProperty]
+    public partial int TotalNumberOfSupportTickets { get; private set; }
 
     public async Task LoadAllSupportTicketsAsync()
     {
@@ -52,6 +52,8 @@ public partial class CasesViewModel(ISupportTicketListService ticketListService,
             }
 
             SetStatusMessage("ärende i listan", "ärenden i listan", "Det finns inga sparade ärenden än");
+
+            TotalNumberOfSupportTickets = SupportTickets.Count;
         }
         catch
         {
