@@ -12,6 +12,11 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
     // en kontroll för om användaren har ett  filter på eller inte
     private bool _filterOn = false;
 
+    public bool IsFilterOn
+    {
+        get { return _filterOn; }
+    }
+
     /// <summary>
     /// Hämtar alla sparade ärenden genom repositoryn och returnerar dessa sorterade efter datum
     /// </summary>
