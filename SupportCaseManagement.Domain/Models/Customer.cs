@@ -7,18 +7,27 @@ namespace SupportCaseManagement.Domain.Models;
 public class Customer
 {
     private static readonly int _minNameLength = 2;
-    private List<SupportTicket> _supportTickets;
+    private readonly List<SupportTicket> _supportTickets;
 
     public Guid CustomerId { get; init; }
     public string CustomerName { get; private set; }
     public string EmailAddress { get; private set; }
-
     public bool IsCompany { get; private set; }
-    public IReadOnlyList<SupportTicket> TicketList => _supportTickets.AsReadOnly();
+    public IReadOnlyList<SupportTicket> SupportTickets => _supportTickets.AsReadOnly();
 
     [JsonIgnore]
     public string CustomerType => IsCompany ? "Företag" : "Privatkund";
 
+
+    [JsonConstructor]
+    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, List<SupportTicket> supportTickets)
+    {
+        CustomerId = customerId;
+        CustomerName = customerName;
+        EmailAddress = emailAddress;
+        IsCompany = isCompany;
+        _supportTickets = supportTickets;
+    }
 
     public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany)
     {
@@ -26,8 +35,9 @@ public class Customer
         CustomerName = ValidateCustomerName(customerName);
         EmailAddress = ValidateEmailAddress(emailAddress);
         IsCompany = isCompany;
-        _supportTickets = new List<SupportTicket>();
+        _supportTickets = [];
     }
+
 
     private static Guid ValidateCustomerId(Guid customerId)
     {
