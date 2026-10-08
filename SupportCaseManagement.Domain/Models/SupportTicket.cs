@@ -19,6 +19,7 @@ public class SupportTicket
     private readonly List<Comment> _comments = [];
 
     // Återskapar ett Ärende från Json med sparat ID och datum. Används vid deserialisering av ärenden från fil.
+
     [JsonConstructor]
     public SupportTicket(
         Guid id,
@@ -112,6 +113,7 @@ public class SupportTicket
 
 
     //lägger till en kommentar med aktuell tid. Tom text avvisas
+
     public void AddComment(string text)
     {
         var comment = new Comment(text, DateTime.UtcNow);
