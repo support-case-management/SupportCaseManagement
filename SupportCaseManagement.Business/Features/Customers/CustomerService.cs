@@ -9,9 +9,29 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 {
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
-    public Task<CreateCustomerResponse> CreateCustomerAsync(CreateCustomerRequest request)
+    public async Task<CreateCustomerResponse> CreateCustomerAsync(CreateCustomerRequest request)
     {
-        throw new NotImplementedException();
+        CreateCustomerResponse response;
+
+        try
+        {
+            Guid customerId = Guid.NewGuid();
+
+            Customer customer = new Customer(customerId, request.CustomerName, request.EmailAddress, request.IsCompany);
+
+            List<Customer> customers = await _customerRepository.GetAllAsync();
+            customers.Add(customer);
+
+            await _customerRepository.SaveAllAsync(customers);
+
+            response = new CreateCustomerResponse(true, customer, null);
+        }
+        catch (Exception ex)
+        {
+            response = new CreateCustomerResponse(false, null, ex.Message);
+        }
+
+        return response;
     }
 
     public async Task<GetAllCustomersResponse> GetAllCustomersAsync()
