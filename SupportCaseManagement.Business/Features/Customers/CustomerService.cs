@@ -53,9 +53,29 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
         return response;
     }
 
-    public Task<GetCustomerByIdResponse> GetCustomerByIdAsync(Guid customerId)
+    public async Task<GetCustomerByIdResponse> GetCustomerByIdAsync(Guid customerId)
     {
-        throw new NotImplementedException();
+        GetCustomerByIdResponse response;
+
+        try
+        {
+            Customer? customer = await _customerRepository.GetByIdAsync(customerId);
+
+            if (customer is not null)
+            {
+                response = new GetCustomerByIdResponse(true, customer, null);
+            }
+            else
+            {
+                response = new GetCustomerByIdResponse(false, null, "Något gick fel, försök igen");
+            }
+        }
+        catch (Exception ex)
+        {
+            response = new GetCustomerByIdResponse(false, null, ex.Message);
+        }
+
+        return response;
     }
 
     public Task<UpdateCustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest request)
