@@ -62,12 +62,18 @@
 
         <TextBox x:Name="CommentSpace"
                  Header="Ny Kommentar"
+                 Text="{x:Bind ViewModel.NewComment, Mode=TwoWay}"
                  AcceptsReturn="True"
                  MinHeight="80"
                  TextWrapping="Wrap"/>
-        <Button Content="Lägg till en kommentar" />
+        <Button Content="Lägg till en kommentar" 
+                Command="{x:Bind ViewModel.AddCommentCommand}"
+                />
         <TextBlock Text="Tidigare kommentarer" />
-        <ListView x:Name="CommentsList" />
+        <ListView x:Name="CommentsList"
+                  ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}"
+                  DisplayMemberPath="Text"
+                  />
 
 
 
