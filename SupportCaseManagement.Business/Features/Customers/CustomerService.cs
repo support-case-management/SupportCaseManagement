@@ -93,6 +93,8 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
                 customer = UpdateCustomerEmail(request.EmailAddress, customer);
                 customer = UpdateCustomerIsCompany(request.IsCompany, customer);
 
+                await _customerRepository.UpdateAsync(customer);
+
                 response = new UpdateCustomerResponse(true, customer, null);
             }
             else
@@ -100,7 +102,7 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
                 response = new UpdateCustomerResponse(false, null, "Kunden kunde inte hittas");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             response = new UpdateCustomerResponse(false, null, ex.Message);
         }
@@ -110,7 +112,12 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 
     private Customer UpdateCustomerName(string customerName, Customer customer)
     {
-        if (!string.IsNullOrWhiteSpace(customerName) && !customerName.Equals(customer.CustomerName))
+        if (string.IsNullOrWhiteSpace(customerName))
+        {
+            throw new ArgumentException("Kundens namn kan inte tas bort");
+        }
+
+        if (!customerName.Equals(customer.CustomerName))
         {
             customer.Rename(customerName);
         }
@@ -120,7 +127,12 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 
     private Customer UpdateCustomerEmail(string emailAddress, Customer customer)
     {
-        if (!string.IsNullOrWhiteSpace(emailAddress) && !emailAddress.Equals(customer.EmailAddress))
+        if (string.IsNullOrWhiteSpace(emailAddress))
+        {
+            throw new ArgumentException("Kundens e-postadress kan inte tas bort");
+        }
+
+        if (!emailAddress.Equals(customer.EmailAddress))
         {
             customer.ChangeEmailAddress(emailAddress);
         }
@@ -130,10 +142,7 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 
     private Customer UpdateCustomerIsCompany(bool isCompany, Customer customer)
     {
-        if (isCompany =! customer.IsCompany)
-        {
-            customer.ChangeIsCompany(isCompany);
-        }
+        customer.ChangeIsCompany(isCompany);
 
         return customer;
     }

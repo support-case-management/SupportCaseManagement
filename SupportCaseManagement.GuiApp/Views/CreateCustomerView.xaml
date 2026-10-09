@@ -31,6 +31,7 @@
                     FontSize="32" />
 
                 <TextBlock 
+                    x:Name="SubheadingTxt"
                     Text="Registrera en privat eller företagskund"
                     FontSize="16" />
             </StackPanel>
@@ -53,7 +54,7 @@
             </StackPanel>
 
             <!--Fylla i kontaktuppgifter-->
-            <StackPanel Grid.Row="2" Margin="0,20" Spacing="10">
+            <StackPanel Grid.Row="2" Margin="0,20" Spacing="5">
                 <TextBlock 
                     Text="Kontaktuppgifter"
                     FontSize="24"/>
@@ -64,6 +65,7 @@
                 
                 <TextBox 
                     HorizontalAlignment="Stretch"
+                    Margin="0,10,0,2"
                     Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
                     PlaceholderText="Ange namn"
                     Text="{x:Bind ViewModel.CustomerName, Mode=TwoWay}" />

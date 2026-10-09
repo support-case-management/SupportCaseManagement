@@ -22,6 +22,7 @@ public sealed partial class CreateCustomerView : Page
         if (ViewModel.SelectedCustomer is not null)
         {
             TitleTxt.Text = "Uppdatera kund";
+            SubheadingTxt.Text = "Uppdatera en existerande kunds uppgifter";
             SaveTxt.Text = "Spara ändringar";
         }
     }
