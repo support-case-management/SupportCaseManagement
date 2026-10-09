@@ -49,7 +49,7 @@ public partial class CustomersViewModel(ICustomerService customerService, INavig
                     Customers.Add(customer);
                 }
 
-                SetStatusMessage("ärende i listan", "ärenden i listan", "Det finns inga sparade ärenden än");
+                SetStatusMessage("kund i listan", "kunder i listan", "Det finns inga sparade kunder än");
 
                 TotalNumberOfCustomers = Customers.Count;
             }

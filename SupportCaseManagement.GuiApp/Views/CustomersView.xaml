@@ -19,28 +19,28 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--Rubrik-->
         <TextBlock 
-            Text="Ärenden" 
+            Text="Kunder" 
             FontSize="32" />
 
         <!--Statusmeddelande-->
         <TextBlock 
-            Grid.Column="0"
+            Grid.Row="1"
+            Margin="0,5"
             FontSize="16"
             VerticalAlignment="Center"
             Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"/>
 
         <!--Kundlistan-->
         <Border 
-        Grid.Row="2"
-        BorderBrush="Gray"
-        BorderThickness="1"
-        CornerRadius="12"
-        Margin="0,8">
+            Grid.Row="2"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            CornerRadius="12"
+            Margin="0,8">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -49,10 +49,10 @@
                 </Grid.RowDefinitions>
 
                 <Border
-                BorderBrush="Gray"
-                BorderThickness="1"
-                Padding="0,8"
-                Background="Gray">
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Padding="0,8"
+                    Background="Gray">
 
                     <Grid ColumnSpacing="20">
                         <Grid.ColumnDefinitions>
@@ -63,20 +63,20 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock
-                        Text="NAMN"
-                        Margin="48,0,0,0" />
+                            Text="NAMN"
+                            Margin="48,0,0,0" />
 
                         <TextBlock
-                        Grid.Column="1"
-                        Text="E-POSTADRESS" />
+                            Grid.Column="1"
+                            Text="E-POSTADRESS" />
 
                         <TextBlock
-                        Grid.Column="2"
-                        Text="ANTAL ÄRENDEN" />
+                            Grid.Column="2"
+                            Text="ANTAL ÄRENDEN" />
 
                         <TextBlock
-                        Grid.Column="3"
-                        Text="KUNDTYP" />
+                            Grid.Column="3"
+                            Text="KUNDTYP" />
                     </Grid>
                 </Border>
 
@@ -103,25 +103,25 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Border>
-                                        <SymbolIcon Symbol="Character" />
+                                        <SymbolIcon Symbol="Contact" />
                                     </Border>
 
                                     <TextBlock
-                                    Grid.Column="1"
-                                    Text="{x:Bind CustomerName}" />
+                                        Grid.Column="1"
+                                        Text="{x:Bind CustomerName}" />
                                 </Grid>
 
                                 <TextBlock
-                                Grid.Column="1"
-                                Text="{x:Bind EmailAddress}" />
+                                    Grid.Column="1"
+                                    Text="{x:Bind EmailAddress}" />
 
                                 <TextBlock
-                                Grid.Column="2"
-                                Text="{x:Bind SupportTickets.Count}" />
+                                    Grid.Column="2"
+                                    Text="{x:Bind SupportTickets.Count}" />
 
                                 <TextBlock
-                                Grid.Column="3"
-                                Text="{x:Bind CustomerType}" />
+                                    Grid.Column="3"
+                                    Text="{x:Bind CustomerType}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -129,34 +129,38 @@
             </Grid>
         </Border>
 
-        <!--Lägga till kund knapp-->
-        <Grid Grid.Row="3">
+        <!--Totalt antal sparade kunder och Lägga till kund knapp-->
+        <Grid 
+            Grid.Row="3"
+            Margin="0,0,0,14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            
+            <StackPanel 
+                Grid.Row="4"
+                Orientation="Horizontal" 
+                Spacing="5">
+                <TextBlock 
+                    VerticalAlignment="Center"
+                    Text="Totalt antal sparade kunder:"
+                    FontSize="16" />
+                <TextBlock 
+                    VerticalAlignment="Center"
+                    Text="{x:Bind ViewModel.TotalNumberOfCustomers, Mode=OneWay}"
+                    FontSize="16"/>
+            </StackPanel>
 
             <Button
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            Command="{x:Bind ViewModel.OpenCreateCustomerCommand}">
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Command="{x:Bind ViewModel.OpenCreateCustomerCommand}">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <SymbolIcon Symbol="Add" />
                     <TextBlock Text="Lägg till kund" />
                 </StackPanel>
             </Button>
         </Grid>
-
-        <!--Totalt antal sparade kunder-->
-        <StackPanel Grid.Row="4" Margin="0,20" Orientation="Horizontal" Spacing="5">
-            <TextBlock 
-            VerticalAlignment="Center"
-            Text="Totalt antal sparade kunder:"
-            FontSize="16" />
-            <TextBlock 
-            VerticalAlignment="Center"
-            Text="{x:Bind ViewModel.TotalNumberOfCustomers}"
-            FontSize="16"/>
-        </StackPanel>
     </Grid>
 </Page>
