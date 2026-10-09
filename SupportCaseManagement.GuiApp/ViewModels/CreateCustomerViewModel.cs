@@ -5,6 +5,7 @@ using SupportCaseManagement.Application.Dtos.Responses;
 using SupportCaseManagement.Application.Features.Customers;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Navigation;
+using System;
 using System.Threading.Tasks;
 
 namespace SupportCaseManagement.Presentation.ViewModels;
@@ -17,10 +18,10 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
 
 
     [ObservableProperty]
-    public partial string CustomerName { get; set; }
+    public partial string CustomerName { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial string EmailAddress { get; set; }
+    public partial string EmailAddress { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial bool IsCompany { get; set; }
@@ -39,11 +40,41 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
 
     public bool IsNotBusy => !IsBusy;
 
+
+    public void LoadCreateCustomerView()
+    {
+        if (SelectedCustomer is not null)
+        {
+            CustomerName = SelectedCustomer.CustomerName;
+            EmailAddress = SelectedCustomer.EmailAddress;
+            IsCompany = SelectedCustomer.IsCompany;
+        }
+    }
+
     [RelayCommand]
     private async Task SaveCustomerAsync()
     {
         IsBusy = true;
         ErrorMessage = string.Empty;
+        bool success;
+
+        if (SelectedCustomer is not null)
+        {
+            success = await UpdateCustomer();
+        }
+        else
+        {
+            success = await CreateNewCustomer();
+        }
+        
+        if (success)
+        {
+            _navigationService.Navigate(AppPage.Customers);
+        }
+    }
+
+    private async Task<bool> CreateNewCustomer()
+    {
         bool success;
 
         try
@@ -68,10 +99,36 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
             IsBusy = false;
         }
 
-        if (success)
+        return success;
+    }
+
+    private async Task<bool> UpdateCustomer()
+    {
+        bool success;
+
+        try
         {
-            _navigationService.Navigate(AppPage.Customers);
+            UpdateCustomerRequest request = new(SelectedCustomer!.CustomerId, CustomerName, EmailAddress, IsCompany);
+
+            UpdateCustomerResponse response = await _customerService.UpdateCustomerAsync(request);
+            success = response.Success;
+
+            if (!success)
+            {
+                ErrorMessage = response.ErrorMessage ?? _ErrorMessage;
+            }
         }
+        catch
+        {
+            success = false;
+            ErrorMessage = _ErrorMessage;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
+        return success;
     }
 
     [RelayCommand]

@@ -84,9 +84,10 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 
         try
         {
-            Customer? customer = GetCustomerByIdAsync(request.CustomerId).Result.Customer;
+            GetCustomerByIdResponse getCustomerResponse = await GetCustomerByIdAsync(request.CustomerId);
+            Customer? customer = getCustomerResponse.Customer;
 
-            if (customer is not null)
+            if (getCustomerResponse.Success && customer is not null)
             {
                 customer = UpdateCustomerName(request.CustomerName, customer);
                 customer = UpdateCustomerEmail(request.EmailAddress, customer);

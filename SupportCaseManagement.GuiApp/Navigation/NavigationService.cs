@@ -31,7 +31,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
         {
             _history.Push((_curuntPageType.Value, _currentTicket));
         }
-        SetPage(page, ticket);
+        SetPage(page, ticket, customer);
     }
 
     public void GoBack()
