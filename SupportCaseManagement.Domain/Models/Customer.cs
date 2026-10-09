@@ -41,7 +41,7 @@ public class Customer
     private static Guid ValidateCustomerId(Guid customerId)
     {
         if (customerId == Guid.Empty)
-            throw new ArgumentException("Kund-Id är ett obligatoriskt fält", nameof(customerId));
+            throw new ArgumentException("Kund-Id är ett obligatoriskt fält");
 
         return customerId;
     }
@@ -49,12 +49,12 @@ public class Customer
     private static string ValidateCustomerName(string customerName)
     {
         if (string.IsNullOrWhiteSpace(customerName))
-            throw new ArgumentException("Kundnamn är ett obligatoriskt fält", nameof(customerName));
+            throw new ArgumentException("Kundnamn är ett obligatoriskt fält");
 
         string customerNameTrimmed = customerName.Trim();
 
         if (customerNameTrimmed.Length < _minNameLength)
-            throw new ArgumentException($"Kundens namn måsta vara minst {_minNameLength} bokstäver långt", nameof(customerName));
+            throw new ArgumentException($"Kundens namn måsta vara minst {_minNameLength} bokstäver långt");
 
         return customerNameTrimmed;
     }
@@ -62,12 +62,12 @@ public class Customer
     private static string ValidateEmailAddress(string customerEmail)
     {
         if (string.IsNullOrWhiteSpace(customerEmail))
-            throw new ArgumentException("E-postadress är ett obligatoriskt fält", nameof(customerEmail));
+            throw new ArgumentException("E-postadress är ett obligatoriskt fält");
 
         string normalizedEmail = customerEmail.Trim().ToLower();
 
         if (!MailAddress.TryCreate(normalizedEmail, out var emailAddress) || !string.Equals(emailAddress.Address, normalizedEmail, StringComparison.Ordinal))
-            throw new ArgumentException("E-postadressen måste vara en giltig e-postadress", nameof(customerEmail));
+            throw new ArgumentException("E-postadressen måste vara en giltig e-postadress");
 
         return normalizedEmail;
     }

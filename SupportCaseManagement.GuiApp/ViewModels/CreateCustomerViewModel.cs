@@ -17,10 +17,10 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
 
 
     [ObservableProperty]
-    public partial string CustomerName { get; private set; }
+    public partial string CustomerName { get; set; }
 
     [ObservableProperty]
-    public partial string EmailAddress { get; private set; }
+    public partial string EmailAddress { get; set; }
 
     [ObservableProperty]
     public partial bool IsCompany { get; set; }

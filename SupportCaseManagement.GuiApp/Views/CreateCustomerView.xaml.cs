@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Presentation.ViewModels;
 
@@ -14,7 +15,7 @@ public sealed partial class CreateCustomerView : Page
         InitializeComponent();
     }
 
-    private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private void Page_Loaded(object sender, RoutedEventArgs e)
     {
 
     }

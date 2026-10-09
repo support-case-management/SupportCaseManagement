@@ -87,7 +87,7 @@ public partial class CustomersViewModel(ICustomerService customerService, INavig
     [RelayCommand]
     private void OpenCreateCustomer()
     {
-        //_navigationService.Navigate(AppPage.);
+        _navigationService.Navigate(AppPage.CreateCustomer);
     }
 
     [RelayCommand]
@@ -96,6 +96,6 @@ public partial class CustomersViewModel(ICustomerService customerService, INavig
         if (customer is null)
             return;
 
-        //_navigationService.Navigate(AppPage.UpdateCustomer, customer);
+        _navigationService.Navigate(AppPage.CreateCustomer, null, customer);
     }
 }

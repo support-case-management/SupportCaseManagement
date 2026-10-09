@@ -22,7 +22,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
     [ObservableProperty]
     public partial bool CanGoBack { get; private set; }
 
-    public void Navigate(AppPage page, SupportTicket? ticket = null)
+    public void Navigate(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
     {
         if (_curuntPageType == page && _currentTicket == ticket)
             return;

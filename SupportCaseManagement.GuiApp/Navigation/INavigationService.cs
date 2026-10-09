@@ -7,7 +7,7 @@ namespace SupportCaseManagement.Presentation.Navigation;
 public interface INavigationService : INotifyPropertyChanged
 {
     Page? CurrentPage { get; }
-    void Navigate(AppPage page, SupportTicket? ticket=null);
+    void Navigate(AppPage page, SupportTicket? ticket = null, Customer? customer = null);
     bool CanGoBack { get; }
     void GoBack();
 

@@ -15,9 +15,16 @@
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <Grid Padding="20">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <!--Rubrik och Underrubrik-->
-            <StackPanel>
+            <StackPanel Margin="0,0,0,10">
                 <TextBlock 
                     Text="Lägg till kund"
                     FontSize="32" />
@@ -28,7 +35,7 @@
             </StackPanel>
 
             <!--Sätta kundtyp-->
-            <StackPanel>
+            <StackPanel Grid.Row="1" Margin="0,20">
                 <TextBlock 
                     Text="Kundtyp"
                     FontSize="24" />
@@ -40,11 +47,12 @@
                     IsOn="{x:Bind ViewModel.IsCompany, Mode=TwoWay}" />
 
                 <TextBlock 
-                    Text="Aktivera reglaget om kunden är en företagskund"/>
+                    Text="Aktivera reglaget om kunden är en företagskund"
+                    FontSize="16"/>
             </StackPanel>
 
             <!--Fylla i kontaktuppgifter-->
-            <StackPanel>
+            <StackPanel Grid.Row="2" Margin="0,20" Spacing="10">
                 <TextBlock 
                     Text="Kontaktuppgifter"
                     FontSize="24"/>
@@ -57,31 +65,34 @@
                     HorizontalAlignment="Stretch"
                     Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
                     PlaceholderText="Ange namn"
-                    Text="{x:Bind ViewModel.CustomerName}" />
+                    Text="{x:Bind ViewModel.CustomerName, Mode=TwoWay}" />
 
                 <TextBox 
                     HorizontalAlignment="Stretch"
                     Header="E-postadress"
                     PlaceholderText="Ange e-postadress"
-                    Text="{x:Bind ViewModel.EmailAddress}" />
+                    Text="{x:Bind ViewModel.EmailAddress, Mode=TwoWay}" />
             </StackPanel>
             
             <!--Error message-->
             <TextBlock 
+                Grid.Row="3"
                 Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
                 FontSize="16"
                 Foreground="Red" />
             
             <!--Save and Cancel buttons-->
-            <StackPanel Orientation="Horizontal" Spacing="10">
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Spacing="10"  Margin="0,20" >
                 <Button 
                     Content="Avbryt"
+                    Width="150"
                     Command="{x:Bind ViewModel.CancelCommand}"/>
 
                 <Button 
                     Command="{x:Bind ViewModel.SaveCustomerCommand}"
-                    Style="{StaticResource AccentButtonStyle}" >
-                    <StackPanel>
+                    Style="{StaticResource AccentButtonStyle}"
+                    Width="150">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
                         <SymbolIcon Symbol="Save" />
                         <TextBlock Text="Spara kund" />
                     </StackPanel>
