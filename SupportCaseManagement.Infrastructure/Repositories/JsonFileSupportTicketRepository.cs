@@ -76,7 +76,7 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
 
         SupportTicket? supportTicket = supportTickets.FirstOrDefault(ticket => ticket.Id == id);
 
-        if (supportTicket == null)
+        if (supportTicket is null)
         {
             throw new ArgumentNullException($"Inget ärende med id '{id}' kunde hittas i den sparade filen");
         }

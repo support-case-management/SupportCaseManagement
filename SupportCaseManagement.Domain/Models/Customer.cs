@@ -1,5 +1,4 @@
 ﻿using System.Net.Mail;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.Json.Serialization;
 
 namespace SupportCaseManagement.Domain.Models;
@@ -20,13 +19,13 @@ public class Customer
 
 
     [JsonConstructor]
-    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, List<SupportTicket> supportTickets)
+    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, IReadOnlyList<SupportTicket> supportTickets)
     {
         CustomerId = customerId;
         CustomerName = customerName;
         EmailAddress = emailAddress;
         IsCompany = isCompany;
-        _supportTickets = supportTickets;
+        _supportTickets = supportTickets.ToList() ?? [];
     }
 
     public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany)
