@@ -19,7 +19,6 @@
             <!--Rubrik och Underrubrik-->
             <StackPanel>
                 <TextBlock 
-                    
                     Text="Lägg till kund"
                     FontSize="32" />
 
@@ -28,6 +27,7 @@
                     FontSize="16" />
             </StackPanel>
 
+            <!--Sätta kundtyp-->
             <StackPanel>
                 <TextBlock 
                     Text="Kundtyp"
@@ -42,8 +42,51 @@
                 <TextBlock 
                     Text="Aktivera reglaget om kunden är en företagskund"/>
             </StackPanel>
+
+            <!--Fylla i kontaktuppgifter-->
+            <StackPanel>
+                <TextBlock 
+                    Text="Kontaktuppgifter"
+                    FontSize="24"/>
+
+                <TextBlock
+                    Text="Fyll i kontaktuppgifter. Både namn och e-postadress krävs"
+                    FontSize="16" />
+                
+                <TextBox 
+                    HorizontalAlignment="Stretch"
+                    Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
+                    PlaceholderText="Ange namn"
+                    Text="{x:Bind ViewModel.CustomerName}" />
+
+                <TextBox 
+                    HorizontalAlignment="Stretch"
+                    Header="E-postadress"
+                    PlaceholderText="Ange e-postadress"
+                    Text="{x:Bind ViewModel.EmailAddress}" />
+            </StackPanel>
             
+            <!--Error message-->
+            <TextBlock 
+                Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                FontSize="16"
+                Foreground="Red" />
             
+            <!--Save and Cancel buttons-->
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button 
+                    Content="Avbryt"
+                    Command="{x:Bind ViewModel.CancelCommand}"/>
+
+                <Button 
+                    Command="{x:Bind ViewModel.SaveCustomerCommand}"
+                    Style="{StaticResource AccentButtonStyle}" >
+                    <StackPanel>
+                        <SymbolIcon Symbol="Save" />
+                        <TextBlock Text="Spara kund" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </Page>

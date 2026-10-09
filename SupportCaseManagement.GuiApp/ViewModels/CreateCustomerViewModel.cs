@@ -23,7 +23,7 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
     public partial string EmailAddress { get; private set; }
 
     [ObservableProperty]
-    public partial bool IsCompany { get; private set; }
+    public partial bool IsCompany { get; set; }
 
     [ObservableProperty]
     public partial string ErrorMessage { get; private set; } = string.Empty;
