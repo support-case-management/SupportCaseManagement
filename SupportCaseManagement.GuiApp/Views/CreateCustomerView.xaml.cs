@@ -13,4 +13,9 @@ public sealed partial class CreateCustomerView : Page
 
         InitializeComponent();
     }
+
+    private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+
+    }
 }

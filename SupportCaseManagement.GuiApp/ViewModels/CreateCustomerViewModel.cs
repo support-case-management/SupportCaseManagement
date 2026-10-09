@@ -31,6 +31,8 @@ public partial class CreateCustomerViewModel(ICustomerService customerService, I
     [ObservableProperty]
     public partial Customer? SelectedCustomer { get; set; }
 
+    public string NameLabel => IsCompany ? "Företagsnamn" : "Kundnamn";
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     public partial bool IsBusy { get; private set; }

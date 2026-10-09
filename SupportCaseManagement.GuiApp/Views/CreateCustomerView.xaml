@@ -6,9 +6,44 @@
     xmlns:local="using:SupportCaseManagement.Presentation.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    xmlns:models="using:SupportCaseManagement.Domain.Models"
+    Loaded="Page_Loaded"
+    IsEnabled="{x:Bind ViewModel.IsNotBusy, Mode=OneWay}"
+    >
 
-    <Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <Grid Padding="20">
+            
+            <!--Rubrik och Underrubrik-->
+            <StackPanel>
+                <TextBlock 
+                    
+                    Text="Lägg till kund"
+                    FontSize="32" />
 
-    </Grid>
+                <TextBlock 
+                    Text="Registrera en privat eller företagskund"
+                    FontSize="16" />
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock 
+                    Text="Kundtyp"
+                    FontSize="24" />
+                
+                <ToggleSwitch 
+                    OffContent="Privatkund"
+                    OnContent="Företagskund"
+                    AutomationProperties.Name="Kundtyp"
+                    IsOn="{x:Bind ViewModel.IsCompany, Mode=TwoWay}" />
+
+                <TextBlock 
+                    Text="Aktivera reglaget om kunden är en företagskund"/>
+            </StackPanel>
+            
+            
+        </Grid>
+    </ScrollViewer>
 </Page>
