@@ -44,7 +44,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
     }
 
 
-    public void SetPage(AppPage page, SupportTicket? ticket = null)
+    public void SetPage(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
     {
         Page nextPage;
 
@@ -54,6 +54,12 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
             view.ViewModel.SelectedTicket = ticket;
             nextPage = view;
 
+        }
+        else if (page == AppPage.CreateCustomer)
+        {
+            var view = services.GetRequiredService<CreateCustomerView>();
+            view.ViewModel.SelectedCustomer = customer;
+            nextPage = view;
         }
         else
         {
