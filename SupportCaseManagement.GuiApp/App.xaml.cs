@@ -40,6 +40,9 @@ public partial class App : Microsoft.UI.Xaml.Application
         services.AddTransient<CaseManagerViewModel>();
         services.AddTransient<CaseManagerView>();
 
+        services.AddTransient<CreateCustomerViewModel>();
+        services.AddTransient<CreateCustomerView>();
+
         _services = services.BuildServiceProvider();
     }
 
