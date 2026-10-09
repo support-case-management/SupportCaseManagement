@@ -142,7 +142,10 @@ internal class CustomerService(ICustomerRepository customerRepository) : ICustom
 
     private Customer UpdateCustomerIsCompany(bool isCompany, Customer customer)
     {
-        customer.ChangeIsCompany(isCompany);
+        if (isCompany != customer.IsCompany)
+        {
+            customer.ChangeIsCompany(isCompany);
+        }
 
         return customer;
     }
