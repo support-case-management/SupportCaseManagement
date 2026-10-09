@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using SupportCaseManagement.Application;
+using SupportCaseManagement.Application.Features.CreateSupportTicket;
+using SupportCaseManagement.Domain.Interfaces;
 using SupportCaseManagement.Infrastructure;
+using SupportCaseManagement.Infrastructure.Repositories;
 using SupportCaseManagement.Presentation.Navigation;
 using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.ViewModels;
@@ -39,6 +42,13 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddTransient<CaseManagerViewModel>();
         services.AddTransient<CaseManagerView>();
+
+        services.AddSingleton<ICustomerRepository, CustomerRepositoryTest>();
+        services.AddTransient<ICreateSupportTicketService, CreateSupportTicketService>();
+
+        services.AddTransient<CreateSupportTicketViewModel>();
+        services.AddTransient<CreateSupportTicketView>();
+        services.AddTransient<Func<CreateSupportTicketView>>(sp => () => sp.GetRequiredService<CreateSupportTicketView>());
 
         _services = services.BuildServiceProvider();
     }

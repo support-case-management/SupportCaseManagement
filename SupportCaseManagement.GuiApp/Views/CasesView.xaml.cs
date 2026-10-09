@@ -3,14 +3,16 @@ using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.ViewModels;
+using System;
 
 namespace SupportCaseManagement.Presentation.Views;
 
 public sealed partial class CasesView : Page
 {
+    private readonly Func<CreateSupportTicketView> _createTicketViewFactory;
     public CasesViewModel ViewModel { get; }
 
-    public CasesView(CasesViewModel viewModel)
+    public CasesView(CasesViewModel viewModel, Func<CreateSupportTicketView> createTicketViewFactory)
     {
         ViewModel = viewModel;
 
@@ -18,6 +20,25 @@ public sealed partial class CasesView : Page
 
         // sätter automatiskt filtret till att visa alla ärenden när vyn öppnas
         FilterCmb.SelectedIndex = 3;
+
+        _createTicketViewFactory = createTicketViewFactory;
+    }
+
+    private async void OpenCreateTicketDialog_Click(object sender, RoutedEventArgs e)
+    {
+        var createTicketView = _createTicketViewFactory();
+
+        var dialog = new ContentDialog
+        {
+            Title = "Registrera nytt ärende",
+            Content = createTicketView,
+            CloseButtonText = "Avbryt",
+            XamlRoot = this.XamlRoot
+        };
+
+        await dialog.ShowAsync();
+
+        await ViewModel.LoadAllSupportTicketsAsync();
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)

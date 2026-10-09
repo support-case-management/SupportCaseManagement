@@ -4,8 +4,8 @@ using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.Views;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace SupportCaseManagement.Presentation.Navigation;
 
@@ -38,8 +38,12 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
     {
         if (_history.Count > 0)
         {
-            var previousPage = _history.Pop();
-            SetPage(previousPage.Page, previousPage.Ticket);
+            var (previousPage, previousTicket) = _history.Pop();
+
+            _curuntPageType = null;
+            _currentTicket = null;
+
+            SetPage(previousPage, previousTicket);
         }
     }
 
