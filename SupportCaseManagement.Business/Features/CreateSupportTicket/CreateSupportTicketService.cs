@@ -24,7 +24,7 @@ public class CreateSupportTicketService : ICreateSupportTicketService
             throw new InvalidOperationException("Denna kund finns inte i systemet.");
         }
 
-        var ticket = new SupportTicket(title, description, customerId, priority);
+        var ticket = new SupportTicket(title, description, customerId, priority, customer);
 
         var tickets = await _supportTicketRepository.GetAllAsync();
         tickets.Add(ticket);

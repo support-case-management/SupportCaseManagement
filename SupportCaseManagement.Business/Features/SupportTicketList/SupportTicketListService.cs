@@ -86,8 +86,8 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
 
         // tar alla ärenden där den sökta texten finns i ärendets rubrik eller i kundens namn, oberoende på stora eller små bokstäver
         IEnumerable<SupportTicket> searchedTickets = from ticket in supportTickets
-                                                     where ticket.Title.ToLower().Contains(normalizedSearchText) //||
-                                                          // ticket.Customer.CustomerName.Value.ToLower().Contains(normalizedSearchText)
+                                                     where ticket.Title.ToLower().Contains(normalizedSearchText) ||
+                                                           ticket.Customer.CustomerName.ToLower().Contains(normalizedSearchText)
                                                      select ticket;
 
         if (searchedTickets is null)

@@ -82,6 +82,7 @@ public class SupportTicket
         TicketStatus status,
         DateTime createdAt,
         string? assignedCaseWorker,
+        Customer customer,
         IReadOnlyList<Comment> comments)
 
     {
@@ -89,6 +90,7 @@ public class SupportTicket
         Id = id;
         CustomerId = customerId;
         CreatedAt = createdAt;
+        Customer = customer;
 
         UpdateDetails(title, description);
         ChangePriority(priority);
@@ -101,7 +103,7 @@ public class SupportTicket
         }
     }
 
-    public SupportTicket(string title, string description, Guid customerId, TicketPriority priority)
+    public SupportTicket(string title, string description, Guid customerId, TicketPriority priority, Customer customer)
     {
         // 3.2 Validering i domänen
         if (string.IsNullOrWhiteSpace(title))
@@ -120,6 +122,7 @@ public class SupportTicket
         Priority = priority;
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
         CreatedAt = DateTime.UtcNow;
+        Customer = customer;
     }
 
     public void AssignCaseWorker(string? name)

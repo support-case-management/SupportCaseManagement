@@ -74,11 +74,9 @@ public partial class CaseManagerViewModel : ObservableObject
                 (TicketStatus)StatusIndex,
                 SelectedTicket.CreatedAt,
                 AssignedCaseWorker,
+                SelectedTicket.Customer,
                 SelectedTicket.Comments
-            )
-            {
-                Customer = SelectedTicket.Customer
-            };
+            );
             var savedTicket = await _ticketRepository.UpdateAsync(updatedTicket);
             SelectedTicket = savedTicket;
             SaveMessage = "Ändringar sparades";
@@ -109,11 +107,9 @@ public partial class CaseManagerViewModel : ObservableObject
                 (TicketStatus)StatusIndex,
                 SelectedTicket.CreatedAt,
                 AssignedCaseWorker,
+                SelectedTicket.Customer,
                 SelectedTicket.Comments
-            )
-            {
-                Customer = SelectedTicket.Customer
-            };
+            );
 
             updatedTicket.AddComment(NewComment);
 
@@ -126,12 +122,7 @@ public partial class CaseManagerViewModel : ObservableObject
         {
             SaveMessage = $"Kunde inte spara kommentar: {ex.Message}";
         }
-
     }
-
-
-
-
 }
 
 

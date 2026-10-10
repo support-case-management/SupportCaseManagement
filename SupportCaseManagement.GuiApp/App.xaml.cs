@@ -45,7 +45,6 @@ public partial class App : Microsoft.UI.Xaml.Application
 
         services.AddTransient<CreateCustomerViewModel>();
         services.AddTransient<CreateCustomerView>();
-        services.AddSingleton<ICustomerRepository, CustomerRepositoryTest>();
         services.AddTransient<ICreateSupportTicketService, CreateSupportTicketService>();
 
         services.AddTransient<CreateSupportTicketViewModel>();
