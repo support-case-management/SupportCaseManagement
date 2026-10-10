@@ -37,7 +37,7 @@
         <!--Kundlistan-->
         <Border 
             Grid.Row="2"
-            BorderBrush="Gray"
+            BorderBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="12"
             Margin="0,8">
@@ -49,10 +49,10 @@
                 </Grid.RowDefinitions>
 
                 <Border
-                    BorderBrush="Gray"
+                    BorderBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderThickness="1"
                     Padding="0,8"
-                    Background="Gray">
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
 
                     <Grid ColumnSpacing="20">
                         <Grid.ColumnDefinitions>
@@ -155,7 +155,8 @@
             <Button
                 Grid.Column="1"
                 VerticalAlignment="Center"
-                Command="{x:Bind ViewModel.OpenCreateCustomerCommand}">
+                Command="{x:Bind ViewModel.OpenCreateCustomerCommand}"
+                Style="{StaticResource AccentButtonStyle}" >
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <SymbolIcon Symbol="Add" />
                     <TextBlock Text="Lägg till kund" />

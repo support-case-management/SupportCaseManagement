@@ -22,7 +22,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
     [ObservableProperty]
     public partial bool CanGoBack { get; private set; }
 
-    public void Navigate(AppPage page, SupportTicket? ticket = null)
+    public void Navigate(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
     {
         if (_curuntPageType == page && _currentTicket == ticket)
             return;
@@ -31,7 +31,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
         {
             _history.Push((_curuntPageType.Value, _currentTicket));
         }
-        SetPage(page, ticket);
+        SetPage(page, ticket, customer);
     }
 
     public void GoBack()
@@ -48,7 +48,7 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
     }
 
 
-    public void SetPage(AppPage page, SupportTicket? ticket = null)
+    public void SetPage(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
     {
         Page nextPage;
 
@@ -58,6 +58,12 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
             view.ViewModel.SelectedTicket = ticket;
             nextPage = view;
 
+        }
+        else if (page == AppPage.CreateCustomer)
+        {
+            var view = services.GetRequiredService<CreateCustomerView>();
+            view.ViewModel.SelectedCustomer = customer;
+            nextPage = view;
         }
         else
         {

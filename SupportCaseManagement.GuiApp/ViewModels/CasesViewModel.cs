@@ -4,7 +4,6 @@ using SupportCaseManagement.Application.Features.SupportTicketList;
 using SupportCaseManagement.Domain.Enums;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

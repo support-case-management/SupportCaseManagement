@@ -54,7 +54,7 @@
         <!--Ärendelistan-->
         <Border 
             Grid.Row="2"
-            BorderBrush="Gray"
+            BorderBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="12"
             Margin="0,8">
@@ -66,10 +66,10 @@
                 </Grid.RowDefinitions>
 
                 <Border
-                    BorderBrush="Gray"
+                    BorderBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderThickness="1"
                     Padding="0,8"
-                    Background="Gray">
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
 
                     <Grid ColumnSpacing="20">
                         <Grid.ColumnDefinitions>
@@ -182,6 +182,8 @@
             <Button
                 Grid.Column="1"
                 VerticalAlignment="Center"
+                Command="{x:Bind ViewModel.OpenCreateSupportTicketCommand}"
+                Style="{StaticResource AccentButtonStyle}" >
                 Click="OpenCreateTicketDialog_Click">
                <!-- Command="{x:Bind ViewModel.OpenCreateSupportTicketCommand}"> -->
                 <StackPanel Orientation="Horizontal" Spacing="8">
