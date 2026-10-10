@@ -32,7 +32,7 @@
 
                 <TextBlock 
                     x:Name="SubheadingTxt"
-                    Text="Registrera en privat eller företagskund"
+                    Text="Registrera en privatperson eller ett företag som kund"
                     FontSize="16" />
             </StackPanel>
 
@@ -49,7 +49,7 @@
                     IsOn="{x:Bind ViewModel.IsCompany, Mode=TwoWay}" />
 
                 <TextBlock 
-                    Text="Aktivera reglaget om kunden är en företagskund"
+                    Text="Aktivera reglaget om kunden är ett företag"
                     FontSize="16"/>
             </StackPanel>
 
@@ -60,7 +60,7 @@
                     FontSize="24"/>
 
                 <TextBlock
-                    Text="Fyll i kontaktuppgifter. Både namn och e-postadress krävs"
+                    Text="Fyll i kundens kontaktuppgifter, både namn och e-postadress krävs"
                     FontSize="16" />
                 
                 <TextBox 
