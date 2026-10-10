@@ -13,4 +13,5 @@
     <Deploy />
   </Project>
   <Project Path="SupportCaseManagement.Infrastructure/SupportCaseManagement.Infrastructure.csproj" />
+  <Project Path="SupportCaseManagement.Tests/SupportCaseManagement.Tests.csproj" Id="dde034ed-757b-44d4-bcc5-c300810a56a9" />
 </Solution>
