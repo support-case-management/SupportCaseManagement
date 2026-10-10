@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SupportCaseManagement.Application.Dtos.Responses;
 using SupportCaseManagement.Application.Features.Customers;
 using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -49,7 +49,7 @@ public partial class CustomersViewModel(ICustomerService customerService, INavig
                     Customers.Add(customer);
                 }
 
-                SetStatusMessage("ärende i listan", "ärenden i listan", "Det finns inga sparade ärenden än");
+                SetStatusMessage("kund i listan", "kunder i listan", "Det finns inga sparade kunder än");
 
                 TotalNumberOfCustomers = Customers.Count;
             }
@@ -82,5 +82,20 @@ public partial class CustomersViewModel(ICustomerService customerService, INavig
         {
             StatusMessage = textNoCustomers;
         }
+    }
+
+    [RelayCommand]
+    private void OpenCreateCustomer()
+    {
+        //_navigationService.Navigate(AppPage.);
+    }
+
+    [RelayCommand]
+    private void OpenUpdateCustomer(Customer customer)
+    {
+        if (customer is null)
+            return;
+
+        //_navigationService.Navigate(AppPage.UpdateCustomer, customer);
     }
 }
