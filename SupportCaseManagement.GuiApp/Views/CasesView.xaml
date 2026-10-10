@@ -148,7 +148,7 @@
 
                                 <TextBlock
                                     Grid.Column="4"
-                                    Text="{x:Bind Customer.CustomerName}" />
+                                    Text="{x:Bind Customer.CustomerName, Mode=OneWay}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -184,6 +184,8 @@
                 VerticalAlignment="Center"
                 Command="{x:Bind ViewModel.OpenCreateSupportTicketCommand}"
                 Style="{StaticResource AccentButtonStyle}" >
+                Click="OpenCreateTicketDialog_Click">
+               <!-- Command="{x:Bind ViewModel.OpenCreateSupportTicketCommand}"> -->
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <SymbolIcon Symbol="Add" />
                     <TextBlock Text="Lägg till ärende" />

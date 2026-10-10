@@ -9,10 +9,11 @@
     mc:Ignorable="d">
 
     <ScrollViewer Padding="24">
-        <StackPanel Spacing="16" MaxWidth="500" HorizontalAlignment="Left" >
+        <StackPanel Spacing="16" MaxWidth="800" HorizontalAlignment="Stretch" >
             <TextBlock 
                 Text="Registrera supportärende"
                 Margin="0,0,0,12"    
+                Style="{ThemeResource TitleTextBlockStyle}"
                        />
             <TextBox Header="Rubrik"
                      Text="{x:Bind ViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -26,9 +27,9 @@
                      PlaceholderText="Beskriv problemet eller ärendet..."   
                 />
             <ComboBox Header="Välj Kund"
-                      ItemsSource="{x:Bind ViewModel.Customers}"
+                      ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
                       SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}"
-                      DisplayMemberPath="CustomerName.Value"
+                      DisplayMemberPath="CustomerName"
                       HorizontalAlignment="Stretch"
                       PlaceholderText="Välj kund i listan..."
                       />
@@ -38,7 +39,7 @@
                       HorizontalAlignment="Stretch"
                       />
             <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
-                       Foreground="ThemeResource SystemFillColorCriticalBrush"
+                       Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                        TextWrapping="Wrap"
                        />
             <Button Content="Skapa Ärende"

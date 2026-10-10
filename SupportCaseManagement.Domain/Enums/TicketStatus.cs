@@ -6,4 +6,4 @@ public enum TicketStatus
     New,
     InProgress,
     Closed,
-}
+} 

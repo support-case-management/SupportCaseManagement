@@ -11,18 +11,18 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24" Spacing="12">
-        <TextBlock Text="Ärendedetalj"/>
-        <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
-        <TextBlock Text="Kund" />
-        <TextBlock x:Name="CustomerName" 
+            <TextBlock Text="Ärendedetalj"/>
+            <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
+            <TextBlock Text="Kund" />
+            <TextBlock x:Name="CustomerName" 
                    Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
 
-        <TextBox x:Name="Title" 
+            <TextBox x:Name="Title" 
                  Header="Rubrik"
                  Text="{x:Bind ViewModel.Title, Mode=TwoWay}"
                  />
 
-        <TextBox x:Name="DescriptionBox" 
+            <TextBox x:Name="DescriptionBox" 
                  Header="Beskrivning"
                  Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
                  MinHeight="100"
@@ -32,46 +32,62 @@
                  
                  />
 
-        <ComboBox x:Name="CaseWorkerBox"
+            <ComboBox x:Name="CaseWorkerBox"
                    Header="Ansvarig handläggare"
                    PlaceholderText="Välj en handläggare"
                    SelectedItem="{x:Bind ViewModel.AssignedCaseWorker, Mode=TwoWay}"
                    />
-        <ComboBox x:Name="PriorityBox" 
+            <ComboBox x:Name="PriorityBox" 
                   Header="prioritet"
                   SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=TwoWay}"
                   >
-            <ComboBoxItem Content="Låg"/>
-            <ComboBoxItem Content="Normal"/>
-            <ComboBoxItem Content="Hög"/>
-        </ComboBox>
+                <ComboBoxItem Content="Låg"/>
+                <ComboBoxItem Content="Normal"/>
+                <ComboBoxItem Content="Hög"/>
+            </ComboBox>
 
-        <ComboBox x:Name="Status" 
+            <ComboBox x:Name="Status" 
                   Header="status"
                   SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=TwoWay}"
                   >
-            <ComboBoxItem Content="Nytt"/>
-            <ComboBoxItem Content="Pågående"/>
-            <ComboBoxItem Content="Löst"/>
-        </ComboBox>
-            
-        
-        <Button Content="Spara ändringar" Command="{x:Bind ViewModel.SaveCommand}" />
-        <TextBlock Text="{x:Bind ViewModel.SaveMessage, Mode=OneWay}" 
+                <ComboBoxItem Content="Nytt"/>
+                <ComboBoxItem Content="Pågående"/>
+                <ComboBoxItem Content="Löst"/>
+            </ComboBox>
+
+
+            <Button Content="Spara ändringar" Command="{x:Bind ViewModel.SaveCommand}" />
+            <TextBlock Text="{x:Bind ViewModel.SaveMessage, Mode=OneWay}" 
                    TextWrapping="Wrap"/>
 
-        <TextBox x:Name="CommentSpace"
+            <TextBox x:Name="CommentSpace"
                  Header="Ny Kommentar"
+                 Text="{x:Bind ViewModel.NewComment, Mode=TwoWay}"
                  AcceptsReturn="True"
                  MinHeight="80"
                  TextWrapping="Wrap"/>
-        <Button Content="Lägg till en kommentar" />
-        <TextBlock Text="Tidigare kommentarer" />
-        <ListView x:Name="CommentsList" />
+            <Button Content="Lägg till en kommentar" 
+                Command="{x:Bind ViewModel.AddCommentCommand}"
+                />
+            <TextBlock Text="Tidigare kommentarer" />
+            <ListView x:Name="CommentsList"
+                  ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Spacing="6" Margin="0,4">
+                            <TextBlock Text="{Binding Text}" 
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding CreatedAtText}" 
+                                       FontSize="12"
+                                       Opacity="0.6"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
 
 
-
-    </StackPanel>
+            </ListView>
+        </StackPanel>
     </ScrollViewer>
 
 
