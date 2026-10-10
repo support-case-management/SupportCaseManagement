@@ -19,13 +19,13 @@ public class Customer
 
 
     [JsonConstructor]
-    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, IReadOnlyList<SupportTicket> supportTickets)
+    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, IReadOnlyList<SupportTicket>? supportTickets = null)
     {
         CustomerId = customerId;
         CustomerName = customerName;
         EmailAddress = emailAddress;
         IsCompany = isCompany;
-        _supportTickets = supportTickets.ToList() ?? [];
+        _supportTickets = supportTickets?.ToList() ?? [];
     }
 
     public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany)

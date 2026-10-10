@@ -51,14 +51,14 @@ internal class JsonFileSupportTicketRepository : ISupportTicketRepository
     /// <returns>en lista med alla sparade ärenden</returns>
     public async Task<List<SupportTicket>> GetAllAsync()
     {
-       if (!File.Exists(_supportTicketsFilePath))
+        if (!File.Exists(_supportTicketsFilePath))
         {
             return [];
         }
 
         string json = await File.ReadAllTextAsync(_supportTicketsFilePath);
 
-        List<SupportTicket> supportTickets = JsonSerializer.Deserialize <List<SupportTicket>>(json, _options)
+        List<SupportTicket> supportTickets = JsonSerializer.Deserialize<List<SupportTicket>>(json, _options)
             ?? throw new JsonException("Ärendelistans fil måste innehålla en json baserad lista");
 
         return supportTickets;
