@@ -6,20 +6,20 @@ namespace SupportCaseManagement.Domain.Models;
 public class Customer
 {
     private static readonly int _minNameLength = 2;
-    private readonly List<SupportTicket> _supportTickets;
+    private readonly List<Guid> _supportTickets;
 
     public Guid CustomerId { get; init; }
     public string CustomerName { get; private set; }
     public string EmailAddress { get; private set; }
     public bool IsCompany { get; private set; }
-    public IReadOnlyList<SupportTicket> SupportTickets => _supportTickets.AsReadOnly();
+    public IReadOnlyList<Guid> SupportTickets => _supportTickets.AsReadOnly();
 
     [JsonIgnore]
     public string CustomerType => IsCompany ? "Företag" : "Privatkund";
 
 
     [JsonConstructor]
-    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, IReadOnlyList<SupportTicket>? supportTickets = null)
+    public Customer(Guid customerId, string customerName, string emailAddress, bool isCompany, IReadOnlyList<Guid>? supportTickets = null)
     {
         CustomerId = customerId;
         CustomerName = customerName;
@@ -91,7 +91,7 @@ public class Customer
     {
         if (supportTicket is not null)
         {
-            _supportTickets.Add(supportTicket);
+            _supportTickets.Add(supportTicket.Id);
         }
     }
 }

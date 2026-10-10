@@ -1,5 +1,4 @@
 ﻿using SupportCaseManagement.Domain.Enums;
-using System.Net.WebSockets;
 using System.Text.Json.Serialization;
 
 namespace SupportCaseManagement.Domain.Models;

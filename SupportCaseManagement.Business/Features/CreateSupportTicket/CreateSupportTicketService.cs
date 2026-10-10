@@ -26,6 +26,10 @@ public class CreateSupportTicketService : ICreateSupportTicketService
 
         var ticket = new SupportTicket(title, description, customerId, priority, customer);
 
+        // ökar antalet ärenden kunden har med 1 och sparar uppdateringen
+        customer.AddSupportTicket(ticket);
+        await _customerRepository.UpdateAsync(customer);
+
         var tickets = await _supportTicketRepository.GetAllAsync();
         tickets.Add(ticket);
         await _supportTicketRepository.SaveAllAsync(tickets);
