@@ -36,6 +36,11 @@ public sealed partial class CasesView : Page
             XamlRoot = this.XamlRoot
         };
 
+        if (createTicketView.DataContext is CreateSupportTicketViewModel vm)
+        {
+            vm.TicketCreatedSuccessfully += () => dialog.Hide();
+        }
+
         await dialog.ShowAsync();
 
         await ViewModel.LoadAllSupportTicketsAsync();
