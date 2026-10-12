@@ -58,6 +58,11 @@ public sealed partial class MainWindow : Window
             case "caseManager":
                 ViewModel.ShowCaseManagerViewCommand.Execute(null);
                 break;
+
+            case "settings":
+                ViewModel.ShowSettingsCommand.Execute(null);
+                break;
+
         }
     }
 
@@ -72,6 +77,7 @@ public sealed partial class MainWindow : Window
                 CustomersView => GetMenuItem("customers"),
                 CasesView => GetMenuItem("cases"),
                 CaseManagerView => GetMenuItem("caseManager"),
+                SettingsView => GetMenuItem("settings"),
                 _ => MainNavigation.SelectedItem
             };
         }

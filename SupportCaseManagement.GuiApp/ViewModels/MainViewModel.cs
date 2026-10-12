@@ -31,4 +31,10 @@ public partial class MainViewModel(INavigationService navigationService) : Obser
     {
         Navigation.Navigate(AppPage.CaseManager);
     }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        Navigation.Navigate(AppPage.Setting);
+    }
 }
