@@ -28,7 +28,7 @@
                  />
 
             <TextBox x:Name="DescriptionBox" 
-                 Header="Beskrivning"
+                 Header="Beskrivning" 
                  Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
                  MinHeight="100"
                  AcceptsReturn="True"
