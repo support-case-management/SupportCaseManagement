@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SupportCaseManagement.Presentation.Views.CreateSupportTicketView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SupportCaseManagement.Presentation.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="16" MaxWidth="800" HorizontalAlignment="Stretch" >
+            <TextBlock 
+                Text="Registrera supportärende"
+                Margin="0,0,0,12"    
+                Style="{ThemeResource TitleTextBlockStyle}"
+                       />
+            <TextBox Header="Rubrik"
+                     Text="{x:Bind ViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     PlaceholderText="Ange kortfattad rubrik för ärendet"
+                     />
+            <TextBox Header="Beskrivning"
+                     Text="{x:Bind ViewModel.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Height="120"
+                     PlaceholderText="Beskriv problemet eller ärendet..."   
+                />
+            <ComboBox Header="Välj Kund"
+                      ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
+                      SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}"
+                      DisplayMemberPath="CustomerName"
+                      HorizontalAlignment="Stretch"
+                      PlaceholderText="Välj kund i listan..."
+                      />
+            <ComboBox Header="Prioritet"
+                      ItemsSource="{x:Bind ViewModel.PriorityOptions}"
+                      SelectedItem="{x:Bind ViewModel.SelectedPriority, Mode=TwoWay}"
+                      HorizontalAlignment="Stretch"
+                      />
+            <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                       Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                       TextWrapping="Wrap"
+                       />
+            <Button Content="Skapa Ärende"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Command="{x:Bind ViewModel.SaveTicketCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="0,12,0,0"
+                    Padding="16,8"
+                    />
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+
+
+

@@ -18,6 +18,8 @@
     <None Remove="Pages\OverviewPage.xaml" />
     <None Remove="Views\CaseManagerView.xaml" />
     <None Remove="Views\CasesView.xaml" />
+    <None Remove="Views\CreateCustomerView.xaml" />
+    <None Remove="Views\CreateSupportTicketView.xaml" />
     <None Remove="Views\CustomersView.xaml" />
   </ItemGroup>
 
@@ -54,6 +56,16 @@
     <ProjectReference Include="..\SupportCaseManagement.Business\SupportCaseManagement.Application.csproj" />
     <ProjectReference Include="..\SupportCaseManagement.Domain\SupportCaseManagement.Domain.csproj" />
     <ProjectReference Include="..\SupportCaseManagement.Infrastructure\SupportCaseManagement.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CreateCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CreateSupportTicketView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\CaseManagerView.xaml">

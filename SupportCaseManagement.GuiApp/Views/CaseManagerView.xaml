@@ -6,12 +6,94 @@
     xmlns:local="using:SupportCaseManagement.Presentation.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    >
 
-    <Grid>
-        <TextBlock Text="Welcome to the Cases Page!" 
-   HorizontalAlignment="Center" 
-   VerticalAlignment="Center" 
-   FontSize="24"/>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24" Spacing="12">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Ärendedetalj: " FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Kund:" FontWeight="Bold"/>
+                <TextBlock x:Name="CustomerName" 
+       Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
+
+            </StackPanel>
+            
+            <TextBox x:Name="Title" 
+                 Header="Rubrik"
+                 Text="{x:Bind ViewModel.Title, Mode=TwoWay}"
+                 />
+
+            <TextBox x:Name="DescriptionBox" 
+                 Header="Beskrivning" 
+                 Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
+                 MinHeight="100"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 
+                 
+                 />
+
+            <ComboBox x:Name="CaseWorkerBox"
+                   Header="Ansvarig handläggare"
+                   PlaceholderText="Välj en handläggare"
+                   SelectedItem="{x:Bind ViewModel.AssignedCaseWorker, Mode=TwoWay}"
+                   />
+            <ComboBox x:Name="PriorityBox" 
+                  Header="prioritet"
+                  SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=TwoWay}"
+                  >
+                <ComboBoxItem Content="Låg"/>
+                <ComboBoxItem Content="Normal"/>
+                <ComboBoxItem Content="Hög"/>
+            </ComboBox>
+
+            <ComboBox x:Name="Status" 
+                  Header="status"
+                  SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=TwoWay}"
+                  >
+                <ComboBoxItem Content="Nytt"/>
+                <ComboBoxItem Content="Pågående"/>
+                <ComboBoxItem Content="Löst"/>
+            </ComboBox>
+
+
+            <Button Content="Spara ändringar" Command="{x:Bind ViewModel.SaveCommand}" />
+            <TextBlock Text="{x:Bind ViewModel.SaveMessage, Mode=OneWay}" 
+                   TextWrapping="Wrap"/>
+
+            <TextBox x:Name="CommentSpace"
+                 Header="Ny Kommentar"
+                 Text="{x:Bind ViewModel.NewComment, Mode=TwoWay}"
+                 AcceptsReturn="True"
+                 MinHeight="80"
+                 TextWrapping="Wrap"/>
+            <Button Content="Lägg till en kommentar" 
+                Command="{x:Bind ViewModel.AddCommentCommand}"
+                />
+            <TextBlock Text="Tidigare kommentarer" />
+            <ListView x:Name="CommentsList"
+                  ItemsSource="{x:Bind ViewModel.Comments, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Spacing="6" Margin="0,4">
+                            <TextBlock Text="{Binding Text}" 
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding CreatedAtText}" 
+                                       FontSize="12"
+                                       Opacity="0.6"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+
+
 </Page>

@@ -1,57 +1,91 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
+using SupportCaseManagement.Domain.Models;
 using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.Views;
 using System;
+using System.Collections.Generic;
 
 namespace SupportCaseManagement.Presentation.Navigation;
 
-public class NavigationService : INavigationService
 
+
+public partial class NavigationService(IServiceProvider services) : ObservableObject, INavigationService
 {
-    private Frame? _frame;
-    public bool CanGoBack => _frame?.CanGoBack == true;
+    private readonly Stack<(AppPage Page, SupportTicket? Ticket)> _history = new();
+    private AppPage? _curuntPageType;
+    private SupportTicket? _currentTicket;
+
+    [ObservableProperty]
+    public partial Page? CurrentPage { get; private set; }
+    [ObservableProperty]
+    public partial bool CanGoBack { get; private set; }
+
+    public void Navigate(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
+    {
+        if (_curuntPageType == page && _currentTicket == ticket)
+            return;
+
+        if (_curuntPageType.HasValue)
+        {
+            _history.Push((_curuntPageType.Value, _currentTicket));
+        }
+        SetPage(page, ticket, customer);
+    }
 
     public void GoBack()
     {
-        if (_frame is { CanGoBack: true })
+        if (_history.Count > 0)
         {
-            _frame.GoBack();
+            var (previousPage, previousTicket) = _history.Pop();
+
+            _curuntPageType = null;
+            _currentTicket = null;
+
+            SetPage(previousPage, previousTicket);
         }
     }
 
-    public void Initalize(Frame frame)
-    {
-        _frame = frame;
-    }
 
-    public void Initalize()
+    public void SetPage(AppPage page, SupportTicket? ticket = null, Customer? customer = null)
     {
-        throw new NotImplementedException();
-    }
+        Page nextPage;
 
-    public void Navigate(AppPage page, string? parameter = null)
-    {
-        var frame = _frame ?? throw new InvalidOperationException("Navigation has not been initialized.");
-
-        var pageType = page switch
+        if (page == AppPage.CaseManager)
         {
-            // Här lägger du till nya sidor
-            AppPage.Overview => typeof(OverviewView),
-            AppPage.Customers => typeof(CustomersView),
-            AppPage.Cases => typeof(CasesView),
-            AppPage.CaseManager => typeof(CaseManagerView),
-            _ => throw new ArgumentOutOfRangeException($"Unable to navigate to {page}.")
-        };
+            var view = services.GetRequiredService<CaseManagerView>();
+            view.ViewModel.SelectedTicket = ticket;
+            nextPage = view;
 
-        if (frame.CurrentSourcePageType == pageType && parameter is null)
-        {
-            return;
         }
-
-        if (!frame.Navigate(pageType, parameter))
+        else if (page == AppPage.CreateCustomer)
         {
-            throw new InvalidOperationException($"Navigation to {page} failed.");
+            var view = services.GetRequiredService<CreateCustomerView>();
+            view.ViewModel.SelectedCustomer = customer;
+            nextPage = view;
         }
+        else
+        {
+            nextPage = page switch
+            {
+                AppPage.Overview => services.GetRequiredService<OverviewView>(),
+                AppPage.Customers => services.GetRequiredService<CustomersView>(),
+                AppPage.Cases => services.GetRequiredService<CasesView>(),
+                _ => throw new ArgumentOutOfRangeException(nameof(page))
+            };
+        }
+        _curuntPageType = page;
+        _currentTicket = ticket;
+        CurrentPage = nextPage;
+        CanGoBack = _history.Count > 0;
+
+
     }
+
+
+
+
 }
+
 

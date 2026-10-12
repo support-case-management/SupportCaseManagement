@@ -1,48 +1,88 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SupportCaseManagement.Presentation.Navigation;
+using SupportCaseManagement.Presentation.Pages;
+using SupportCaseManagement.Presentation.ViewModels;
+using SupportCaseManagement.Presentation.Views;
+using System.ComponentModel;
+using System.Linq;
 
 namespace SupportCaseManagement.Presentation;
 
 public sealed partial class MainWindow : Window
 {
     private readonly INavigationService _navigationService;
-    public MainWindow(INavigationService navigationSerivce)
+    public MainViewModel ViewModel { get; }
+    public MainWindow(MainViewModel viewModel, INavigationService navigationService)
     {
+        ViewModel = viewModel;
+
+        _navigationService = navigationService;
+
         InitializeComponent();
 
-        _navigationService = navigationSerivce;
-        _navigationService.Initalize(ContentFrame);
-        _navigationService.Navigate(AppPage.Overview);
-
-    }
-
-    private void ContentFrame_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
-    {
-        MainNavigation.IsBackEnabled = true;
-    }
-
-    private void MainNavigation_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
-    {
-        if (args.InvokedItemContainer is not NavigationViewItem item)
-            return;
-
-        AppPage? page = item.Tag?.ToString() switch
+        if (_navigationService is INotifyPropertyChanged notifyService)
         {
-            "overview" => AppPage.Overview,
-            "customers" => AppPage.Customers,
-            "cases" => AppPage.Cases,
-            "caseManager" => AppPage.CaseManager,
-            _ => null
-        };
+            notifyService.PropertyChanged += (send, args) =>
+            {
+                if (args.PropertyName == nameof(INavigationService.CanGoBack))
+                {
+                    MainNavigation.IsBackEnabled = _navigationService.CanGoBack;
+                }
+            };
+        }
 
-        if (page is AppPage destination)
-            _navigationService.Navigate(destination);
     }
 
-    private void MainNavigation_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+    //private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+    //{
+    //    MainNavigation.IsBackEnabled = true;
+    //}
+
+    private void MainNavigation_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        _navigationService.GoBack();
+        switch (args.InvokedItemContainer?.Tag)
+        {
+            case "overview":
+                ViewModel.ShowOverViewCommand.Execute(null);
+                break;
+
+            case "cases":
+                ViewModel.ShowCasesViewCommand.Execute(null);
+                break;
+
+            case "customers":
+                ViewModel.ShowCustomersViewCommand.Execute(null);
+                break;
+
+            case "caseManager":
+                ViewModel.ShowCaseManagerViewCommand.Execute(null);
+                break;
+        }
     }
+
+    private void MainNavigation_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        if (_navigationService.CanGoBack)
+        {
+            _navigationService.GoBack();
+            MainNavigation.SelectedItem = _navigationService.CurrentPage switch
+            {
+                OverviewView => GetMenuItem("overview"),
+                CustomersView => GetMenuItem("customers"),
+                CasesView => GetMenuItem("cases"),
+                CaseManagerView => GetMenuItem("caseManager"),
+                _ => MainNavigation.SelectedItem
+            };
+        }
+    }
+
+    private NavigationViewItem? GetMenuItem(string tag)
+    {
+        return MainNavigation.MenuItems
+            .OfType<NavigationViewItem>()
+            .FirstOrDefault(x => x.Tag?.ToString() == tag);
+    }
+
 }
 

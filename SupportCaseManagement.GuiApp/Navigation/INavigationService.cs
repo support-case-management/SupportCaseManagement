@@ -1,16 +1,15 @@
-﻿
-
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
+using SupportCaseManagement.Domain.Models;
+using System.ComponentModel;
 
 namespace SupportCaseManagement.Presentation.Navigation;
 
-public interface INavigationService
+public interface INavigationService : INotifyPropertyChanged
 {
+    Page? CurrentPage { get; }
+    void Navigate(AppPage page, SupportTicket? ticket = null, Customer? customer = null);
     bool CanGoBack { get; }
-
     void GoBack();
-    void Initalize(Frame frame);
-    void Initalize();
-    void Navigate(AppPage page, string? parameter = null);
+
 }
 
