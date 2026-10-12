@@ -17,6 +17,8 @@ public partial class CreateSupportTicketViewModel : ObservableObject
 
     public TicketPriority[] PriorityOptions { get; } = Enum.GetValues<TicketPriority>();
 
+    public event Action? TicketCreatedSuccessfully;
+
     public ObservableCollection<Customer> Customers { get; } = [];
 
     [ObservableProperty]
@@ -80,6 +82,7 @@ public partial class CreateSupportTicketViewModel : ObservableObject
 
             SuccessMessage = $"Ärendet har skapats framgångsrikt (ID: {ticketId})!";
             ResetForm();
+            TicketCreatedSuccessfully?.Invoke();
         }
         catch (Exception ex)
         {

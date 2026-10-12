@@ -11,19 +11,24 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="24" Spacing="12">
-            <TextBlock Text="Ärendedetalj"/>
-            <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
-            <TextBlock Text="Kund" />
-            <TextBlock x:Name="CustomerName" 
-                   Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Ärendedetalj: " FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind ViewModel.CreatedAtText, Mode=OneWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Kund:" FontWeight="Bold"/>
+                <TextBlock x:Name="CustomerName" 
+       Text="{x:Bind ViewModel.SelectedTicket.Customer.CustomerName, Mode=OneWay, TargetNullValue='Ingen Kund kopplad'}"/>
 
+            </StackPanel>
+            
             <TextBox x:Name="Title" 
                  Header="Rubrik"
                  Text="{x:Bind ViewModel.Title, Mode=TwoWay}"
                  />
 
             <TextBox x:Name="DescriptionBox" 
-                 Header="Beskrivning"
+                 Header="Beskrivning" 
                  Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
                  MinHeight="100"
                  AcceptsReturn="True"
