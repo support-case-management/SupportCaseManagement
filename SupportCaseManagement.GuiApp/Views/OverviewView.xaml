@@ -6,12 +6,48 @@
     xmlns:local="using:SupportCaseManagement.Presentation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
-    <Grid>
-        <TextBlock Text="{x:Bind ViewModel.Title }" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   FontSize="24"/>
-    </Grid>
+    <StackPanel Spacing="24" Margin="32">
+        <TextBlock Text="Översikt" Style="{StaticResource TitleTextBlockStyle}" />
+
+        <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+          
+            <Border Grid.Column="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Nytt Ärende" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <Ellipse Width="12" Height="12" Fill="Red" />
+                    <TextBlock Text="{x:Bind ViewModel.NewSupportTicketsCount, Mode=OneWay}" Style="{StaticResource TitleLargeTextBlockStyle}" TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+          
+            <Border Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Pågående Ärende" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <Ellipse Width="12" Height="12" Fill="Orange" />
+                    <TextBlock Text="{x:Bind ViewModel.InProgressSupportTicketsCount, Mode=OneWay}" Style="{StaticResource TitleLargeTextBlockStyle}"  TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+       
+            <Border Grid.Column="2" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8" Padding="20">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Löst Ärende" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <Ellipse Width="12" Height="12" Fill="Green" />
+                    <TextBlock Text="{x:Bind ViewModel.ResolvedSupportTicketsCount, Mode=OneWay}" Style="{StaticResource TitleLargeTextBlockStyle}" TextAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </StackPanel>
 </Page>
