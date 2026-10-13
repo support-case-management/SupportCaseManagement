@@ -4,7 +4,7 @@ using SupportCaseManagement.Domain.Models;
 
 namespace SupportCaseManagement.Application.Features.SupportTicketList;
 
-internal class SupportTicketListService(ISupportTicketRepository supportTicketRepository) : ISupportTicketListService
+public class SupportTicketListService(ISupportTicketRepository supportTicketRepository) : ISupportTicketListService
 {
     private readonly ISupportTicketRepository _supportTicketRepository = supportTicketRepository;
     // en lista med alla ärenden som fitrerats fram för att kunna använda filter och söka efter ett eller flera ärenden samtidigt
@@ -53,7 +53,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
             filteredList = [];
         }
 
-        filteredList.OrderByDescending(ticket => ticket.CreatedAt);
+        filteredList = filteredList.OrderByDescending(ticket => ticket.CreatedAt);
 
         _filteredTicketList = filteredList.ToList();
         _isFilterOn = true;
@@ -95,7 +95,7 @@ internal class SupportTicketListService(ISupportTicketRepository supportTicketRe
             searchedTickets = [];
         }
 
-        searchedTickets.OrderByDescending(ticket => ticket.CreatedAt);
+        searchedTickets = searchedTickets.OrderByDescending(ticket => ticket.CreatedAt);
 
         return searchedTickets;
     }
