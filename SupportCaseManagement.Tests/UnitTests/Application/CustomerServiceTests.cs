@@ -1,5 +1,4 @@
-﻿using Castle.Core.Resource;
-using NSubstitute;
+﻿using NSubstitute;
 using SupportCaseManagement.Application.Dtos.Requests;
 using SupportCaseManagement.Application.Dtos.Responses;
 using SupportCaseManagement.Application.Features.Customers;
