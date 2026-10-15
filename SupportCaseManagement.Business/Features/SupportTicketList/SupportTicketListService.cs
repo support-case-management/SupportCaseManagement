@@ -48,11 +48,6 @@ public class SupportTicketListService(ISupportTicketRepository supportTicketRepo
                                                   where ticket.Status == status
                                                   select ticket;
 
-        if (filteredList is null)
-        {
-            filteredList = [];
-        }
-
         filteredList = filteredList.OrderByDescending(ticket => ticket.CreatedAt);
 
         _filteredTicketList = filteredList.ToList();
@@ -89,11 +84,6 @@ public class SupportTicketListService(ISupportTicketRepository supportTicketRepo
                                                      where ticket.Title.ToLower().Contains(normalizedSearchText) ||
                                                            ticket.Customer.CustomerName.ToLower().Contains(normalizedSearchText)
                                                      select ticket;
-
-        if (searchedTickets is null)
-        {
-            searchedTickets = [];
-        }
 
         searchedTickets = searchedTickets.OrderByDescending(ticket => ticket.CreatedAt);
 
