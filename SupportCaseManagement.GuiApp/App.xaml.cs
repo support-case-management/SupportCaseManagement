@@ -2,9 +2,8 @@
 using Microsoft.UI.Xaml;
 using SupportCaseManagement.Application;
 using SupportCaseManagement.Application.Features.CreateSupportTicket;
-using SupportCaseManagement.Domain.Interfaces;
+using SupportCaseManagement.Application.Features.Settings;
 using SupportCaseManagement.Infrastructure;
-using SupportCaseManagement.Infrastructure.Repositories;
 using SupportCaseManagement.Presentation.Navigation;
 using SupportCaseManagement.Presentation.Pages;
 using SupportCaseManagement.Presentation.ViewModels;
@@ -50,6 +49,10 @@ public partial class App : Microsoft.UI.Xaml.Application
         services.AddTransient<CreateSupportTicketViewModel>();
         services.AddTransient<CreateSupportTicketView>();
         services.AddTransient<Func<CreateSupportTicketView>>(sp => () => sp.GetRequiredService<CreateSupportTicketView>());
+
+        services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddTransient<SettingsViewModel>();
+        services.AddTransient<SettingsView>();
 
         _services = services.BuildServiceProvider();
     }

@@ -72,6 +72,8 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
                 AppPage.Overview => services.GetRequiredService<OverviewView>(),
                 AppPage.Customers => services.GetRequiredService<CustomersView>(),
                 AppPage.Cases => services.GetRequiredService<CasesView>(),
+                AppPage.Setting => services.GetRequiredService<SettingsView>(),
+
                 _ => throw new ArgumentOutOfRangeException(nameof(page))
             };
         }

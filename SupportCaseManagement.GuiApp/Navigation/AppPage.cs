@@ -6,6 +6,7 @@ public enum AppPage
     Customers,
     Cases,
     CaseManager,
-    CreateCustomer
+    CreateCustomer,
+    Setting
 }
 
