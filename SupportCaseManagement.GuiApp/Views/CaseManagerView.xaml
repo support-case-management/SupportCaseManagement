@@ -43,7 +43,7 @@
                    SelectedItem="{x:Bind ViewModel.AssignedCaseWorker, Mode=TwoWay}"
                    />
             <ComboBox x:Name="PriorityBox" 
-                  Header="prioritet"
+                  Header="Prioritet"
                   SelectedIndex="{x:Bind ViewModel.PriorityIndex, Mode=TwoWay}"
                   >
                 <ComboBoxItem Content="Låg"/>
@@ -52,7 +52,7 @@
             </ComboBox>
 
             <ComboBox x:Name="Status" 
-                  Header="status"
+                  Header="Status"
                   SelectedIndex="{x:Bind ViewModel.StatusIndex, Mode=TwoWay}"
                   >
                 <ComboBoxItem Content="Nytt"/>

@@ -9,21 +9,25 @@
     mc:Ignorable="d"
     Title="Supportärendehantering">
 
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
+  <Window.SystemBackdrop>
+     <MicaBackdrop />
+ </Window.SystemBackdrop>
 
     <NavigationView x:Name="MainNavigation"
           ItemInvoked="MainNavigation_ItemInvoked" 
           BackRequested="MainNavigation_BackRequested"
           IsBackEnabled="True"
           IsBackButtonVisible="Visible"
-                    >
+          IsSettingsVisible="False">
         <NavigationView.MenuItems>
             <NavigationViewItem x:Name="OverviewNavigationItem" Content="Översikt" Icon="Home" Tag="overview" />
             <NavigationViewItem x:Name="CasesNavigationItem" Content="Ärenden" Icon="Document" Tag="cases" />
             <NavigationViewItem x:Name="CustomersNavigationItem" Content="Kunder" Icon="People" Tag="customers" />
         </NavigationView.MenuItems>
+
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem x:Name="SettingsNavigationItem" Content="Inställningar" Icon="Setting" Tag="settings" />
+        </NavigationView.FooterMenuItems>
 
         <Border>
             <ContentControl 
@@ -31,7 +35,5 @@
                 VerticalContentAlignment="Stretch"
                 Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}"/>
         </Border>
-        
     </NavigationView>
-  
 </Window>

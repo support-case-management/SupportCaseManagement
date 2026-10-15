@@ -1,17 +1,12 @@
-﻿using SupportCaseManagement.Domain.Interfaces;
+﻿using SupportCaseManagement.Application.Features.Settings;
+using SupportCaseManagement.Domain.Interfaces;
 using SupportCaseManagement.Domain.Models;
 using System.Text.Json;
 
 namespace SupportCaseManagement.Infrastructure.Repositories;
 
-internal class JsonFileCustomerRepository : ICustomerRepository
+internal class JsonFileCustomerRepository(ISettingsService settingsService) : ICustomerRepository
 {
-    private readonly string _customersFilePath = Path.Combine
-   (
-       Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-       "SupportCaseManagement",
-       "customers.json"
-   );
 
     private readonly JsonSerializerOptions _options = new JsonSerializerOptions
     {
@@ -21,23 +16,27 @@ internal class JsonFileCustomerRepository : ICustomerRepository
 
     public async Task SaveAllAsync(IEnumerable<Customer> customers)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(_customersFilePath)!);
+        var filePath = settingsService.CustomerFilePath;
+
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
         string json = JsonSerializer.Serialize(customers, _options);
-        var tempPath = _customersFilePath + ".tmp";
+        var tempPath = filePath + ".tmp";
 
         await File.WriteAllTextAsync(tempPath, json);
-        File.Move(tempPath, _customersFilePath, overwrite: true);
+        File.Move(tempPath, filePath, overwrite: true);
     }
 
     public async Task<List<Customer>> GetAllAsync()
     {
-        if (!File.Exists(_customersFilePath))
+        var filePath = settingsService.CustomerFilePath;
+
+        if (!File.Exists(filePath))
         {
             return [];
         }
 
-        string json = await File.ReadAllTextAsync(_customersFilePath);
+        string json = await File.ReadAllTextAsync(filePath);
 
         List<Customer> customers = JsonSerializer.Deserialize<List<Customer>>(json, _options)
             ?? throw new JsonException("Kundlistans fil måste innehålla en json baserad lista");
