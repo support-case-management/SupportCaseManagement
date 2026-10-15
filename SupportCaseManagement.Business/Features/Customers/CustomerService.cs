@@ -5,7 +5,7 @@ using SupportCaseManagement.Domain.Models;
 
 namespace SupportCaseManagement.Application.Features.Customers;
 
-internal class CustomerService(ICustomerRepository customerRepository) : ICustomerService
+public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
 {
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
