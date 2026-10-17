@@ -1,8 +1,8 @@
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Extensions.DependencyInjection;
-using SupportCaseManagement.Application.CaseWorker;
 using SupportCaseManagement.Presentation.ViewModels;
+using SupportCaseManagement.Application.Features.CaseWorker;
 
 namespace SupportCaseManagement.Presentation.Views;
 

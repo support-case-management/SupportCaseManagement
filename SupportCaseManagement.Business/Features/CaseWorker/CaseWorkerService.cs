@@ -1,4 +1,4 @@
-﻿namespace SupportCaseManagement.Application.CaseWorker;
+﻿namespace SupportCaseManagement.Application.Features.CaseWorker;
 
 public class CaseWorkerService
 {

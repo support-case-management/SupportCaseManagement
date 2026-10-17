@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SupportCaseManagement.Application.CaseWorker;
+using SupportCaseManagement.Application.Features.CaseWorker;
 using SupportCaseManagement.Application.Features.Customers;
 using SupportCaseManagement.Application.Features.SupportTicketList;
 namespace SupportCaseManagement.Application;
