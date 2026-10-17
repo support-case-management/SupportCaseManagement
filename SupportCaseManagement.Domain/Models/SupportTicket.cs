@@ -118,7 +118,7 @@ public class SupportTicket
         Title = title.Trim();
         Description = description.Trim();
         CustomerId = customerId;
-        Priority = priority;
+        ChangePriority(priority);
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
         CreatedAt = DateTime.UtcNow;
         Customer = customer;
