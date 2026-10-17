@@ -3,7 +3,7 @@
 Ett ärendehanteringssystem byggt med WinUI 3, C# och Domain-Driven Design (DDD).
 
 ## Gruppmedlemmar Arbetsfördelning (Grupp 1)
-* **Vüsal** – Översiktsvy (Dashboard), Skapa ärende, README & Dokumentation.
+* **Vüsal** – Översiktsvy (Dashboard), Skapa ärende, README & Dokumentation, Navigering.
 * **Mia** – Ärendelista, Sök/Filtrering & Enhetstester, Kundlistan samt skapa kunder.
 * **Silas** – Redigera ärenden, Detaljvy & Kommentarshantering.
 
@@ -30,7 +30,7 @@ Projektet är uppbyggt enligt principen för **Domain-Driven Design (DDD)** med 
 1. **`SupportCaseManagement.Domain`**:
    * Projektets kärna. Innehåller domänmodeller (`Ticket`, `Customer`, `Comment`), enums (`Status`, `Priority`) och affärsregler. Har inga beroenden till andra lager.
 2. **`SupportCaseManagement.Application`**:
-   * Hanterar användningsfall (use cases), logik och flöden. Innehåller DTOs, gränssnitt (t.ex. `ITicketRepository`) och tjänster för att koordinera mellan domänen och presentationen.
+   * Hanterar användningsfall (use cases), logik och flöden. Innehåller DTOs och tjänster för att koordinera mellan domänen och presentationen.
 3. **`SupportCaseManagement.Infrastructure`**:
    * Hanterar teknisk persistering. Implementerar datalagring via lokala JSON-filer och sköter läsning/skrivning av data till disken.
 4. **`SupportCaseManagement.Presentation`**:
