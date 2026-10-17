@@ -118,7 +118,7 @@ public class SupportTicket
         Title = title.Trim();
         Description = description.Trim();
         CustomerId = customerId;
-        Priority = priority;
+        ChangePriority(priority);
         Status = TicketStatus.New; // Status sätts automatiskt till Nytt (New)
         CreatedAt = DateTime.UtcNow;
         Customer = customer;
@@ -156,6 +156,7 @@ public class SupportTicket
 
         Status = newStatus;
     }
+
     public void ChangePriority(TicketPriority newPriority)
     {
         if (!Enum.IsDefined(newPriority))
@@ -167,7 +168,6 @@ public class SupportTicket
 
 
     //lägger till en kommentar med aktuell tid. Tom text avvisas
-
     public void AddComment(string text)
     {
         var comment = new Comment(text, DateTime.UtcNow);
@@ -185,5 +185,4 @@ public class SupportTicket
         Title = title.Trim();
         Description = description.Trim();
     }
-
 }
